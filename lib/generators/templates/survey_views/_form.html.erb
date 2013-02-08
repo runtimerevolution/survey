@@ -1,0 +1,61 @@
+<%= form_for survey_scope(@survey) do |f| %>
+
+  <% if f.object.errors.messages.any? %>
+    <ul>
+      <% f.object.errors.messages.each_pair do |field, msg| %>
+        <li>
+          <%= "#{field} - #{msg}" %>
+        </li>
+      <% end -%>
+    </ul>
+  <% end -%>
+
+  <div class="field">
+    <%= f.label :name %> <br />
+    <%= f.text_field :name %> <br />
+    <%= f.label :attempts_number %> <br />
+    <%= f.text_field :attempts_number %> <br />
+    <%= f.label :active %> <br />
+    <%= f.select :active, ["true", "false"] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %> <br />
+    <%= f.text_area :description, :size => "100x5" %> <br />
+  </div>
+
+  <br/ >
+
+  <div class="field">
+    <ul>
+      <%= f.fields_for :questions do |builder| %>
+          <%= render "question_fields", :f => builder %>
+      <% end %>
+    </ul>
+    <br/ >
+    <%= link_to_add_field "Add a new Question", f, :questions %>
+  </div>
+
+  <br/ >
+
+  <div class="field">
+    <%= f.submit %>
+  </div>
+<% end -%>
+
+<script type="text/javascript">
+  // remove attachment field
+  function removeField(link) {
+    $(link).prev("input[type=hidden]").val("true");
+    tag = $(link).closest("li")
+    tag.hide("fade in").addClass("deleted");
+  }
+
+  // add attachment field
+  function addField(link, association, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g");
+    var html = $(content.replace(regexp, new_id)).hide();
+    html.appendTo($(link).closest("div.field").find("ul").first()).slideDown("slow");
+  }
+</script>
