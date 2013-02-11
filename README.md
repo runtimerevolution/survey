@@ -1,5 +1,7 @@
 # Survey
 
+[![Build Status](https://travis-ci.org/runtimerevolution/survey.png?branch=master)](https://travis-ci.org/runtimerevolution/survey)
+
 ### Surveys on Rails...
 
 Survey is a Ruby Engine that brings quizzes, surveys and contests into your Rails
