@@ -5,8 +5,8 @@
 ### Surveys on Rails...
 
 Survey is a Rails Engine that brings quizzes, surveys and contests into your Rails
-application. Survey models were designed to be flexible enough in order to easly be extended and
-integrated with your own models. Survey Logic was firstly developed as a contest quiz.
+application. Survey models were designed to be flexible enough in order to be extended and
+integrated with your own models. Survey was initially extracted from a real application that handles contests and quizzes.
 
 ## Main Features:
  - Surveys can limit the number of attempts for each participant
@@ -20,9 +20,10 @@ integrated with your own models. Survey Logic was firstly developed as a contest
 
 Add survey to your Gemfile:
 ```ruby
-gem 'survey'
+gem 'survey', :git => 'git://github.com/runtimerevolution/survey.git'
+
 ```
-Then run the bundle command:
+Then run bundle to install the Gem:
 ```sh
 bundle install
 ```
@@ -33,36 +34,22 @@ rails generate survey:install
 bundle exec rake db:migrate
 ```
 
-## Getting Start with Survey
-
-### Integrate Survey into your Rails App
-There are three ways to install survey into your project.
-If you are using Rails Admin or Active Admin Frameworks you can use this approach:
-```sh
-rails generate survey active_admin
-
-rails generate survey rails_admin
-```
-If you want a simpler way in the integration proccess you can use the `plain` option which is a simple Rails scaffold to generate the controller and views related with survey logic.
-By default when you type `rails g survey plain` it generates a controller in the `admin` namespace but you can choose your own namespace as well:
-```sh
-rails generate survey plain namespace:contests
-```
+## Getting started with Survey
 
 ## Survey inside your models
-To tell that User model can answer to surveys you just need to add `has_surveys` on it:
+To make a model aware of you just need to add `has_surveys` on it:
 ```ruby
 class User < ActiveRecord::Base
   has_surveys
 
-  #... (your logic) ...
+  #... (your code) ...
 end
 ```
 There is the concept of participant, in our example we choose the User Model.
 Every participant can respond to surveys and every response is registered as a attempt.
-By default, survey logic assumes infinity number of attempts per participant
+By default, survey logic assumes an infinite number of attempts per participant
 but if your surveys need to have a maximum number of attempts
-you can pass the attribute `attempts_number` in the creation of the it.
+you can pass the attribute `attempts_number` when creating them.
 ```ruby
 # Each Participant can respond 4 times this survey
 Survey::Survey.new(:name => "Star Wars Quiz", :attempts_number => 4)
@@ -108,7 +95,7 @@ end
 
 ## Survey inside your Views
 
-### Controlling the Survey Avaliability per Participant
+### Controlling Survey avaliability per participant
 To control which page participants see you can use method `avaliable_for_participant?`
 that checks if the participant already spent his attempts.
 ```erb
@@ -138,6 +125,20 @@ that checks if the participant already spent his attempts.
   <%= f.submit "Submit" %>
 <% end -%>
 ```
+
+### Scaffolds and CRUD frameworks
+If you are using Rails Admin or Active Admin, you can generate base CRUD screens for Survey with:
+```sh
+rails generate survey active_admin
+
+rails generate survey rails_admin
+```
+If you want a simple way to get started you can use the `plain` option which is a simple Rails scaffold to generate the controller and views related with survey logic.
+By default when you type `rails g survey plain` it generates a controller in the `admin` namespace but you can choose your own namespace as well:
+```sh
+rails generate survey plain namespace:contests
+```
+
 ## How to use it
 Every user has a collection of attempts for each survey that he respond to. Is up to you to
 make averages and collect reports based on that information.
@@ -163,10 +164,10 @@ global_highest_score = survey_answers.high_score
 ### Active Admin
 Only support versions of Active Admin higher than 0.3.1.
 
-# RoadMap
+# Roadmap
 
 - Add a form builder or a helper to improve the creation of Survey forms.
-- Add polymorphic relations to help the survey to be extended with subclasses.
-- Developer can add new fields without break the existent logic.
+- Add polymorphic relations to help the survey be extended with subclasses.
+- Allow adding new fields without breaking the existent logic.
 
 This project rocks and uses MIT-LICENSE.
