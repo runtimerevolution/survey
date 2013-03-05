@@ -4,7 +4,7 @@
 
 ### Surveys on Rails...
 
-Survey is a Ruby Engine that brings quizzes, surveys and contests into your Rails
+Survey is a Rails Engine that brings quizzes, surveys and contests into your Rails
 application. Survey models were designed to be flexible enough in order to easly be extended and
 integrated with your own models. Survey Logic was firstly developed as a contest quiz.
 
