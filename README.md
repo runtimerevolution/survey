@@ -171,3 +171,5 @@ Only support versions of Active Admin higher than 0.3.1.
 - Allow adding new fields without breaking the existent logic.
 
 This project rocks and uses MIT-LICENSE.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/59be37fe81712a1a4dadc798325a30ee "githalytics.com")](http://githalytics.com/runtimerevolution/survey)
