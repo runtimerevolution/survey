@@ -8,6 +8,12 @@ Survey is a Rails Engine that brings quizzes, surveys and contests into your Rai
 application. Survey models were designed to be flexible enough in order to be extended and
 integrated with your own models. Survey was initially extracted from a real application that handles contests and quizzes.
 
+## Documentation
+
+You can view the Survey documentation in RDoc format here:
+
+http://rubydoc.info/github/runtimerevolution/survey/frames
+
 ## Main Features:
  - Surveys can limit the number of attempts for each participant
  - Questions can have multiple answers
@@ -137,6 +143,14 @@ If you want a simple way to get started you can use the `plain` option which is 
 By default when you type `rails g survey plain` it generates a controller in the `admin` namespace but you can choose your own namespace as well:
 ```sh
 rails generate survey plain namespace:contests
+```
+
+By default when you generates your controllers using the `plain` command the task
+generates the associated routes as well.
+Afterwards if you want to generate more routes, you can using the command:
+
+```sh
+rails generate survey routes namespace:admin
 ```
 
 ## How to use it
