@@ -8,6 +8,12 @@ Survey is a Rails Engine that brings quizzes, surveys and contests into your Rai
 application. Survey models were designed to be flexible enough in order to be extended and
 integrated with your own models. Survey was initially extracted from a real application that handles contests and quizzes.
 
+## Documentation 
+
+You can view the Survey documentation in RDoc format here:
+
+http://rubydoc.info/github/runtimerevolution/survey/frames
+
 ## Main Features:
  - Surveys can limit the number of attempts for each participant
  - Questions can have multiple answers
