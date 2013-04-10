@@ -3,7 +3,7 @@ module Survey
 
     source_root File.expand_path("../../templates", __FILE__)
 
-    TEMPLATES = ["active_admin", "rails_admin", "plain"]
+    TEMPLATES = ["active_admin", "rails_admin", "plain", "routes"]
 
     argument  :arguments,
               :type => :array,
@@ -37,7 +37,11 @@ module Survey
       template "helper.rb", "app/helpers/#{scope}/surveys_helper.rb"
       directory "survey_views", "app/views/#{scope}/surveys", :recursive => true
       directory "attempts_views", "app/views/#{scope}/attempts", :recursive => true
-      generate_routes(scope)
+      generate_routes_for(scope)
+    end
+
+    def generate_routes_resolution
+      generate_routes_for(get_scope)
     end
 
     # Error Handlers
@@ -53,7 +57,7 @@ module Survey
       say "Generation of #{argument.capitalize} Template Complete :) enjoy Survey", :green
     end
 
-    def generate_routes_for(resources, namespace, conditional=nil)
+    def generate_routes_for(namespace, conditional=nil)
       content = <<-CONTENT
 
   namespace :#{namespace} do
