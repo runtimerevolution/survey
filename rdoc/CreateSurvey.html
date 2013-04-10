@@ -51,71 +51,69 @@
   </ul>
 </nav>
 
-    
+
   </div>
 
   <div id="class-metadata">
-    
+
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
-  
+
   <p class="link">ActiveRecord::Migration
-  
+
 </nav>
 
-    
+
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
   <h3 class="section-header">Methods</h3>
 
   <ul class="link-list">
-    
+
     <li><a href="#method-c-down">::down</a>
-    
+
     <li><a href="#method-c-up">::up</a>
-    
+
   </ul>
 </nav>
 
   </div>
 
   <div id="project-metadata">
-    
+
     <nav id="classindex-section" class="section project-section">
   <h3 class="section-header">Class and Module Index</h3>
 
   <ul class="link-list">
-  
+
     <li><a href="./Survey.html">Survey</a>
-  
+
     <li><a href="./Survey/ActiveRecord.html">Survey::ActiveRecord</a>
-  
+
     <li><a href="./Survey/ActiveRecord/ClassMethods.html">Survey::ActiveRecord::ClassMethods</a>
-  
+
     <li><a href="./Survey/Answer.html">Survey::Answer</a>
-  
+
     <li><a href="./Survey/Attempt.html">Survey::Attempt</a>
-  
+
     <li><a href="./Survey/Engine.html">Survey::Engine</a>
-  
+
     <li><a href="./Survey/Generators.html">Survey::Generators</a>
-  
+
     <li><a href="./Survey/Generators/InstallGenerator.html">Survey::Generators::InstallGenerator</a>
-  
+
     <li><a href="./Survey/Option.html">Survey::Option</a>
-  
+
     <li><a href="./Survey/Question.html">Survey::Question</a>
-  
-    <li><a href="./Survey/Questionnaire.html">Survey::Questionnaire</a>
-  
+
+    <li><a href="./Survey/Survey.html">Survey::Survey</a>
+
     <li><a href="./Survey/SurveyGenerator.html">Survey::SurveyGenerator</a>
-  
-    <li><a href="./<.html"><</a>
-  
+
     <li><a href="./CreateSurvey.html">CreateSurvey</a>
-  
+
     <li><a href="./Object.html">Object</a>
-  
+
   </ul>
 </nav>
 
@@ -126,46 +124,46 @@
   <h1 class="class">class CreateSurvey</h1>
 
   <div id="description" class="description">
-    
+
   </div><!-- description -->
 
-  
-  
-  
+
+
+
   <section id="5Buntitled-5D" class="documentation-section">
-    
 
-    
 
-    
 
-    
+
+
+
+
 
     <!-- Methods -->
-    
+
      <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Class Methods</h3>
 
-    
+
       <div id="method-c-down" class="method-detail ">
-        
+
         <div class="method-heading">
           <span class="method-name">down</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
-        
+
 
         <div class="method-description">
-          
-          
-          
 
-          
+
+
+
+
           <div class="method-source-code" id="down-source">
-            <pre><span class="ruby-comment"># File lib/generators/templates/migration.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/generators/templates/migration.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">down</span>
-  <span class="ruby-identifier">drop_table</span> <span class="ruby-value">:survey_questionnaires</span>
+  <span class="ruby-identifier">drop_table</span> <span class="ruby-value">:survey_surveys</span>
   <span class="ruby-identifier">drop_table</span> <span class="ruby-value">:survey_questions</span>
   <span class="ruby-identifier">drop_table</span> <span class="ruby-value">:survey_options</span>
 
@@ -173,36 +171,36 @@
   <span class="ruby-identifier">drop_table</span> <span class="ruby-value">:survey_answers</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- down-source -->
-          
+
         </div>
 
-        
 
-        
+
+
       </div><!-- down-method -->
 
-    
+
       <div id="method-c-up" class="method-detail ">
-        
+
         <div class="method-heading">
           <span class="method-name">up</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
-        
+
 
         <div class="method-description">
-          
-          
-          
 
-          
+
+
+
+
           <div class="method-source-code" id="up-source">
             <pre><span class="ruby-comment"># File lib/generators/templates/migration.rb, line 2</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">up</span>
 
-  <span class="ruby-comment"># survey questionnaires logic</span>
-  <span class="ruby-identifier">create_table</span> <span class="ruby-value">:survey_questionnaires</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment"># survey surveys logic</span>
+  <span class="ruby-identifier">create_table</span> <span class="ruby-value">:survey_surveys</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>  <span class="ruby-value">:name</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span>    <span class="ruby-value">:description</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span> <span class="ruby-value">:attempts_number</span>, <span class="ruby-value">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
@@ -213,7 +211,7 @@
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">create_table</span> <span class="ruby-value">:survey_questions</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span> <span class="ruby-value">:questionnaire_id</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span> <span class="ruby-value">:survey_id</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>  <span class="ruby-value">:text</span>
 
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">timestamps</span>
@@ -221,6 +219,7 @@
 
   <span class="ruby-identifier">create_table</span> <span class="ruby-value">:survey_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span> <span class="ruby-value">:question_id</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span> <span class="ruby-value">:weight</span>, <span class="ruby-value">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span> <span class="ruby-value">:text</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">boolean</span> <span class="ruby-value">:correct</span>
 
@@ -230,7 +229,8 @@
   <span class="ruby-comment"># survey answer logic</span>
   <span class="ruby-identifier">create_table</span> <span class="ruby-value">:survey_attempts</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:participant</span>, <span class="ruby-value">:polymorphic</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
-    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span>    <span class="ruby-value">:questionnaire_id</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span>    <span class="ruby-value">:survey_id</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">boolean</span>    <span class="ruby-value">:winner</span>
     <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span>    <span class="ruby-value">:score</span>
   <span class="ruby-keyword">end</span>
 
@@ -243,17 +243,17 @@
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- up-source -->
-          
+
         </div>
 
-        
 
-        
+
+
       </div><!-- up-method -->
 
-    
+
     </section><!-- public-class-method-details -->
-  
+
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class Survey::Questionnaire - Survey</title>
+<title>class Survey::Survey - Survey</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/models/survey/questionnaire.rb
+    <li>app/models/survey/survey.rb
   </ul>
 </nav>
 
@@ -69,6 +69,8 @@
   <h3 class="section-header">Methods</h3>
 
   <ul class="link-list">
+    
+    <li><a href="#method-i-avaliable_for_participant-3F">#avaliable_for_participant?</a>
     
     <li><a href="#method-i-correct_options">#correct_options</a>
     
@@ -106,7 +108,7 @@
   
     <li><a href="../Survey/Question.html">Survey::Question</a>
   
-    <li><a href="../Survey/Questionnaire.html">Survey::Questionnaire</a>
+    <li><a href="../Survey/Survey.html">Survey::Survey</a>
   
     <li><a href="../Survey/SurveyGenerator.html">Survey::SurveyGenerator</a>
   
@@ -123,7 +125,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class Survey::Questionnaire</h1>
+  <h1 class="class">class Survey::Survey</h1>
 
   <div id="description" class="description">
     
@@ -147,6 +149,39 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-avaliable_for_participant-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">avaliable_for_participant?</span><span
+            class="method-args">(participant)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="avaliable_for_participant-3F-source">
+            <pre><span class="ruby-comment"># File app/models/survey/survey.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">avaliable_for_participant?</span>(<span class="ruby-identifier">participant</span>)
+  <span class="ruby-identifier">current_number_of_attempts</span> =
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attempts</span>.<span class="ruby-identifier">for_participant</span>(<span class="ruby-identifier">participant</span>).<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">upper_bound</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attempts_number</span>
+  <span class="ruby-keyword">not</span>(<span class="ruby-identifier">current_number_of_attempts</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">upper_bound</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">upper_bound</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- avaliable_for_participant-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- avaliable_for_participant-3F-method -->
+
+    
       <div id="method-i-correct_options" class="method-detail ">
         
         <div class="method-heading">
@@ -158,12 +193,12 @@
 
         <div class="method-description">
           
-          <p>returns all the correct options for current questionnaire</p>
+          <p>returns all the correct options for current surveys</p>
           
 
           
           <div class="method-source-code" id="correct_options-source">
-            <pre><span class="ruby-comment"># File app/models/survey/questionnaire.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/models/survey/survey.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">correct_options</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">question</span><span class="ruby-operator">|</span> <span class="ruby-identifier">question</span>.<span class="ruby-identifier">correct_options</span> }.<span class="ruby-identifier">flatten</span>
 <span class="ruby-keyword">end</span></pre>
@@ -188,12 +223,12 @@
 
         <div class="method-description">
           
-          <p>returns all the incorrect options for current questionnaire</p>
+          <p>returns all the incorrect options for current surveys</p>
           
 
           
           <div class="method-source-code" id="incorrect_options-source">
-            <pre><span class="ruby-comment"># File app/models/survey/questionnaire.rb, line 27</span>
+            <pre><span class="ruby-comment"># File app/models/survey/survey.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">incorrect_options</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">question</span><span class="ruby-operator">|</span> <span class="ruby-identifier">question</span>.<span class="ruby-identifier">incorrect_options</span> }.<span class="ruby-identifier">flatten</span>
 <span class="ruby-keyword">end</span></pre>

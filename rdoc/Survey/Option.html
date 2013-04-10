@@ -106,7 +106,7 @@
   
     <li><a href="../Survey/Question.html">Survey::Question</a>
   
-    <li><a href="../Survey/Questionnaire.html">Survey::Questionnaire</a>
+    <li><a href="../Survey/Survey.html">Survey::Survey</a>
   
     <li><a href="../Survey/SurveyGenerator.html">Survey::SurveyGenerator</a>
   
@@ -163,7 +163,7 @@
 
           
           <div class="method-source-code" id="correct-3F-source">
-            <pre><span class="ruby-comment"># File app/models/survey/option.rb, line 19</span>
+            <pre><span class="ruby-comment"># File app/models/survey/option.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">correct?</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">correct</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span>
 <span class="ruby-keyword">end</span></pre>
@@ -193,9 +193,9 @@
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File app/models/survey/option.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/models/survey/option.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">answer_text</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- to_s-source -->
           

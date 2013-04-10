@@ -98,7 +98,7 @@
   
     <li><a href="../../Survey/Question.html">Survey::Question</a>
   
-    <li><a href="../../Survey/Questionnaire.html">Survey::Questionnaire</a>
+    <li><a href="../../Survey/Survey.html">Survey::Survey</a>
   
     <li><a href="../../Survey/SurveyGenerator.html">Survey::SurveyGenerator</a>
   
@@ -157,10 +157,10 @@
           <div class="method-source-code" id="has_surveys-source">
             <pre><span class="ruby-comment"># File lib/survey/active_record.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">has_surveys</span>
-  <span class="ruby-identifier">has_many</span> <span class="ruby-value">:survey_tentatives</span>, <span class="ruby-identifier">as</span><span class="ruby-operator">:</span> <span class="ruby-value">:participant</span>, <span class="ruby-value">:class_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Survey</span><span class="ruby-operator">::</span><span class="ruby-constant">Attempt</span>
+  <span class="ruby-identifier">has_many</span> <span class="ruby-value">:survey_tentatives</span>, <span class="ruby-identifier">as</span><span class="ruby-operator">:</span> <span class="ruby-value">:participant</span>, <span class="ruby-value">:class_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Survey</span><span class="ruby-operator">::</span><span class="ruby-constant">Attempt</span>
 
   <span class="ruby-identifier">define_method</span>(<span class="ruby-string">&quot;for_survey&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">survey</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">survey_tentatives</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:questionnaire_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">survey</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">survey_tentatives</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:survey_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">survey</span>.<span class="ruby-identifier">id</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- has_surveys-source -->

@@ -108,7 +108,7 @@
   
     <li><a href="../Survey/Question.html">Survey::Question</a>
   
-    <li><a href="../Survey/Questionnaire.html">Survey::Questionnaire</a>
+    <li><a href="../Survey/Survey.html">Survey::Survey</a>
   
     <li><a href="../Survey/SurveyGenerator.html">Survey::SurveyGenerator</a>
   
@@ -165,7 +165,7 @@
 
           
           <div class="method-source-code" id="high_score-source">
-            <pre><span class="ruby-comment"># File app/models/survey/attempt.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/models/survey/attempt.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">high_score</span>
   <span class="ruby-identifier">scores</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">score</span>
 <span class="ruby-keyword">end</span></pre>
@@ -201,7 +201,7 @@
 
           
           <div class="method-source-code" id="correct_answers-source">
-            <pre><span class="ruby-comment"># File app/models/survey/attempt.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/models/survey/attempt.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">correct_answers</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">answers</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:correct</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -231,7 +231,7 @@
 
           
           <div class="method-source-code" id="incorrect_answers-source">
-            <pre><span class="ruby-comment"># File app/models/survey/attempt.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/models/survey/attempt.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">incorrect_answers</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">answers</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:correct</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
 <span class="ruby-keyword">end</span></pre>
