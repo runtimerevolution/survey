@@ -1,7 +1,7 @@
 # Survey
 
 [![Build Status](https://travis-ci.org/runtimerevolution/survey.png?branch=master)](https://travis-ci.org/runtimerevolution/survey)
-
+[![Code Climate](https://codeclimate.com/github/runtimerevolution/survey.png)](https://codeclimate.com/github/runtimerevolution/survey)
 ### Surveys on Rails...
 
 Survey is a Rails Engine that brings quizzes, surveys and contests into your Rails
