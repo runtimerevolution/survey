@@ -5,6 +5,10 @@ module <%= get_scope.capitalize %>
       link_to_function(raw(name), "removeField(this)", :id =>"remove-attach")
     end
 
+    def new_atttempt_path
+      new_<%= get_scope %>_attempt_path
+    end
+
     def new_survey_path
       new_<%= get_scope %>_survey_path
     end
@@ -13,8 +17,20 @@ module <%= get_scope.capitalize %>
       edit_<%= get_scope %>_survey_path(resource)
     end
 
+    def attempt_scope(resource)
+      if action_name =~ /new|create/
+        <%= get_scope %>_attempts_path(resource)
+      elsif action_name =~ /edit|update/
+        <%= get_scope %>_attempt_path(resource)
+      end
+    end
+
     def survey_scope(resource)
-       [:<%= get_scope %>, resource]
+      if action_name =~ /new|create/
+        <%= get_scope %>_surveys_path(resource)
+      elsif action_name =~ /edit|update/
+        <%= get_scope %>_survey_path(resource)
+      end
     end
 
     def link_to_add_field(name, f, association)

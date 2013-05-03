@@ -4,7 +4,7 @@ module <%= get_scope.capitalize %>
       before_filter :load_survey, :only => [:show, :edit, :update]
 
       def index
-        @survey = Survey::Survey.all
+        @surveys = Survey::Survey.all
       end
 
       def new
@@ -12,7 +12,7 @@ module <%= get_scope.capitalize %>
       end
 
       def create
-        @survey = Survey::Survey.new(params[:survey])
+        @survey = Survey::Survey.new(params[:survey_survey])
         if @survey.valid? and @survey.save
           default_redirect
         else
@@ -27,7 +27,7 @@ module <%= get_scope.capitalize %>
       end
 
       def update
-        if @survey.update_attributes(params[:survey])
+        if @survey.update_attributes(params[:survey_survey])
           default_redirect
         else
           render :action => :edit

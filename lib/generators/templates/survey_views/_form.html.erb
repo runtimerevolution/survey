@@ -1,4 +1,4 @@
-<%= form_for survey_scope(@survey) do |f| %>
+<%= form_for(@survey, :url => survey_scope(@survey)) do |f| %>
 
   <% if f.object.errors.messages.any? %>
     <ul>

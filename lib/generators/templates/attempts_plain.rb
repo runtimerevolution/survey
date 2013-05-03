@@ -5,8 +5,8 @@ class <%= get_scope.capitalize %>::AttemptsController < ApplicationController
   def new
     @survey =  Survey::Survey.active.first
     @attempt = @survey.attempts.new
-    @survey.questions.size.times { @attempt.answers.build }
-    @participant = current_user # you have to decide what to here
+    @attempt.answers.build
+    @participant = current_user # you have to decide what to do here
   end
 
   def create
@@ -14,7 +14,7 @@ class <%= get_scope.capitalize %>::AttemptsController < ApplicationController
     @attempt = @survey.attempts.new(params[:attempt])
     @attempt.participant = current_user
     if @attempt.valid? and @attempt.save
-      redirect_to root_path, alert: I18n.t("attempts_controller.#{action_name}")
+      redirect_to view_context.new_attempt_path, alert: I18n.t("attempts_controller.#{action_name}")
     else
       render :action => :new
     end
