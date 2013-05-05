@@ -5,7 +5,7 @@ module <%= get_scope.capitalize %>
       link_to_function(raw(name), "removeField(this)", :id =>"remove-attach")
     end
 
-    def new_atttempt_path
+    def new_attempt_path
       new_<%= get_scope %>_attempt_path
     end
 

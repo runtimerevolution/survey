@@ -1,13 +1,13 @@
 <h1>Survey <%= @survey.name %></h1>
-<%= form_for survey_scope(@attempt) do |f| %>
+<%= form_for(@attempt, :url => attempt_scope(@attempt)) do |f| %>
   <%= f.fields_for :answers do |builder| %>
     <ul>
-      <% @survey.questions.each do |question| %>
+      <% @survey.questions.each_with_index do |question, index| %>
         <li>
           <p><%= question.text %></p>
-          <%= builder.hidden_field :question_id, :value => question.id %>
+          <%= hidden_field_tag "survey_attempt[answers_attributes][#{index}][question_id]", question.id %>
           <% question.options.each do |option| %>
-            <%= builder.check_box :option_id, {}, option.id, nil %>
+            <%= check_box_tag "survey_attempt[answers_attributes][#{index}][option_id]", option.id %>
             <%= option.text %> <br/ >
           <% end -%>
         </li>
