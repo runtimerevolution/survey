@@ -174,7 +174,12 @@ user_highest_score  = survey_answers.for_participant(@user).high_score
 #check the highest score made for this survey
 global_highest_score = survey_answers.high_score
 ```
-# Compability Issues
+# Compability 
+### Rails
+Survey supports Rails 3 and 4. For use in Rails 4, for now the protected_attributes gem is required and 
+should be included in the project Gemfile. Rails 4 support is recent, so some minor issues may still be present, 
+please report them.
+
 ### Active Admin
 Only support versions of Active Admin higher than 0.3.1.
 
