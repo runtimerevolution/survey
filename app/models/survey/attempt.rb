@@ -12,9 +12,7 @@ class Survey::Attempt < ActiveRecord::Base
 
   validates :participant_id, :participant_type,
     :presence => true
-  attr_accessible :participant_id, :survey_id,
-    :answers_attributes, :survey, :winner, :participant
-
+    
   accepts_nested_attributes_for :answers,
     :reject_if =>
       ->(q) { q[:question_id].blank? || q[:option_id].blank? }

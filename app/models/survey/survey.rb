@@ -1,10 +1,7 @@
 class Survey::Survey < ActiveRecord::Base
 
   self.table_name = "survey_surveys"
-
-  attr_accessible :name, :description, :finished,
-    :active, :questions_attributes, :attempts_number
-
+  
   # relations
   has_many :attempts
   has_many :questions

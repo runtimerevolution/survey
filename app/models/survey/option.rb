@@ -3,11 +3,7 @@ class Survey::Option < ActiveRecord::Base
   self.table_name = "survey_options"
   #relations
   belongs_to :question
-
-  # attributes permissions
-  attr_accessible :text, :correct,
-    :weight
-
+  
   # validations
   validates :text, :presence => true,
     :allow_blank => false

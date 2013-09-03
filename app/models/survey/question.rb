@@ -7,9 +7,7 @@ class Survey::Question < ActiveRecord::Base
   accepts_nested_attributes_for :options,
     :reject_if => ->(a) { a[:text].blank? },
       :allow_destroy => true
-
-  # attributes access permission
-  attr_accessible :options_attributes, :text, :survey
+  
 
   # validations
   validates :text, :presence => true,

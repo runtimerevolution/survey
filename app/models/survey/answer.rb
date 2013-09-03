@@ -6,7 +6,6 @@ class Survey::Answer < ActiveRecord::Base
   belongs_to :question
 
   validates :option_id, :question_id, :presence => true
-  attr_accessible :option, :attempt, :question, :question_id, :option_id
   validates_uniqueness_of :question_id, :scope => [:attempt_id]
   before_create :characterize_answer
 
