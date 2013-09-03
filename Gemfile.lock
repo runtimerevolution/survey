@@ -94,7 +94,6 @@ PLATFORMS
 DEPENDENCIES
   faker
   mocha
-  rails (~> 4.0.0)
   rake
   rdoc
   sqlite3
