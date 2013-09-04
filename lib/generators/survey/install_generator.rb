@@ -4,13 +4,14 @@ module Survey
       source_root File.expand_path("../../templates", __FILE__)
 
       def copy_migration
+        timestamp_number = Time.now.utc.strftime("%Y%m%d%H%M%S").to_i
+        
         unless survey_migration_already_exists?
-          timestamp_number = Time.now.utc.strftime("%Y%m%d%H%M%S").to_i
           copy_file "migration.rb", "db/migrate/#{timestamp_number}_create_survey.rb"
         end
         
         unless section_migration_already_exists?
-          timestamp_number = Time.now.utc.strftime("%Y%m%d%H%M%S").to_i
+          timestamp_number += 1
           copy_file "migration_section.rb", "db/migrate/#{timestamp_number}_create_sections.rb"
         end
         
