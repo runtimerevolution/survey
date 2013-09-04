@@ -6,6 +6,9 @@ class Survey::Survey < ActiveRecord::Base
   has_many :attempts
   has_many :sections
   
+  accepts_nested_attributes_for :sections,
+    :reject_if => ->(q) { q[:name].blank? }, :allow_destroy => true
+    
   scope :active, -> { where(:active => true) }
   scope :inactive, -> { where(:active => false) }
 
