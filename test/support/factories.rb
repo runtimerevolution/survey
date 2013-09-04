@@ -9,6 +9,15 @@ def create_survey(opts = {})
   }.merge(opts))
 end
 
+# Create a Survey::Section
+def create_section(opts = {})
+  Survey::Section.create({
+    :head_number => ::Faker::Name.name,
+    :name => ::Faker::Name.name,
+    :description => ::Faker::Lorem.paragraph(1)
+  }.merge(opts))
+end
+
 # Create a Survey::Question
 def create_question(opts = {})
   Survey::Question.create({
@@ -45,14 +54,18 @@ def create_attempt(opts ={})
   end
 end
 
-def create_survey_with_questions(num)
+def create_survey_with_sections(num, sections_num = 2)
   survey = create_survey
-  num.times do
-    question = create_question
+  sections_num.times do
+    section = create_section
     num.times do
-      question.options << create_option(correct_option_attributes)
+      question = create_question
+      num.times do
+        question.options << create_option(correct_option_attributes)
+      end
+      section.questions << question
     end
-    survey.questions << question
+    survey.sections << section
   end
   survey
 end
@@ -74,9 +87,10 @@ def create_attempt_for(user, survey, opts = {})
 end
 
 def create_answer(opts = {})
-  survey = create_survey_with_questions(6)
-  question = survey.questions.first
-  option   = survey.questions.first.options.first
+  survey = create_survey_with_sections(6)
+  section = survey.sections.first
+  question = section.questions.first
+  option   = section.questions.first.options.first
   attempt = create_attempt(:user => create_user, :survey => survey)
   Survey::Answer.create({:option => option, :attempt => attempt, :question => question}.merge(opts))
 end

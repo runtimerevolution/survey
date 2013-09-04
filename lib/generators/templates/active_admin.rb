@@ -31,16 +31,22 @@ ActiveAdmin.register Survey::Survey do
       f.input  :active, :as => :select, :collection => ["true", "false"]
       f.input  :attempts_number
     end
-    f.inputs I18n.t("questions") do
-      f.has_many :questions do |q|
-        q.input :text
-        q.has_many :options do |a|
-          a.input  :text
-          a.input  :correct
+    
+    f.inputs I18n.t("sections") do
+      f.has_many :sections do |s|
+        s.input :head_number
+        s.input :name
+        s.input :description
+        s.has_many :questions do |q|
+          q.input :text
+          q.has_many :options do |a|
+            a.input  :text
+            a.input  :correct
+          end
         end
       end
     end
+    
     f.buttons
   end
-
 end

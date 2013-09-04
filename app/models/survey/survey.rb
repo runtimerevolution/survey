@@ -4,10 +4,8 @@ class Survey::Survey < ActiveRecord::Base
   
   # relations
   has_many :attempts
-  has_many :questions
-  accepts_nested_attributes_for :questions,
-    :reject_if => ->(q) { q[:text].blank? }, :allow_destroy => true
-  # scoping
+  has_many :sections
+  
   scope :active, -> { where(:active => true) }
   scope :inactive, -> { where(:active => false) }
 
@@ -21,12 +19,12 @@ class Survey::Survey < ActiveRecord::Base
 
   # returns all the correct options for current surveys
   def correct_options
-    self.questions.map { |question| question.correct_options }.flatten
+    Survey::Question.where(:section_id => self.sections.collect(&:id)).map { |question| question.correct_options }.flatten
   end
 
   # returns all the incorrect options for current surveys
   def incorrect_options
-    self.questions.map { |question| question.incorrect_options }.flatten
+    Survey::Question.where(:section_id => self.sections.collect(&:id)).map { |question| question.incorrect_options }.flatten
   end
 
   def avaliable_for_participant?(participant)
@@ -36,12 +34,14 @@ class Survey::Survey < ActiveRecord::Base
     not(current_number_of_attempts >= upper_bound and upper_bound != 0)
   end
 
+  #######
   private
-
-  # a surveys only can be activated if has one or more questions
+  #######
+  
+  # a surveys only can be activated if has one or more sections and questions
   def check_active_requirements
-    if self.active and self.questions.empty?
-      errors.add(:active, "Survey without questions cannot be activated")
+    if self.active and self.sections.empty? and self.sections.collect(&:questions).empty?
+      errors.add(:active, "Survey without sections or questions cannot be activated")
     end
   end
 end

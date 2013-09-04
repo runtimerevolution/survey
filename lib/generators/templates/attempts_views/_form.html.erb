@@ -2,15 +2,20 @@
 <%= form_for(@attempt, :url => attempt_scope(@attempt)) do |f| %>
   <%= f.fields_for :answers do |builder| %>
     <ul>
-      <% @survey.questions.each_with_index do |question, index| %>
-        <li>
-          <p><%= question.text %></p>
-          <%= hidden_field_tag "survey_attempt[answers_attributes][#{index}][question_id]", question.id %>
-          <% question.options.each do |option| %>
-            <%= check_box_tag "survey_attempt[answers_attributes][#{index}][option_id][]", option.id %>
-            <%= option.text %> <br/ >
-          <% end -%>
-        </li>
+      <% seq = 0 %>
+      <% @survey.sections.each do |section| %>
+        <p><span><%= "#{section.head_number} : " if section.head_number %></span><%= section.name%></p>
+        <p><%= section.description if section.description %></p>
+        <% section.each do |question| %>
+          <li>
+            <p><%= question.text %></p>
+            <% question.options.each do |option| %>
+              <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+              <%= check_box_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+              <%= option.text %> <br/>
+            <% end -%>
+          </li>
+        <% end -%>
       <% end -%>
     </ul>
   <% end -%>

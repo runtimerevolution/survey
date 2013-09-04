@@ -8,12 +8,24 @@ module Survey
           timestamp_number = Time.now.utc.strftime("%Y%m%d%H%M%S").to_i
           copy_file "migration.rb", "db/migrate/#{timestamp_number}_create_survey.rb"
         end
+        
+        unless section_migration_already_exists?
+          timestamp_number = Time.now.utc.strftime("%Y%m%d%H%M%S").to_i
+          copy_file "migration_section.rb", "db/migrate/#{timestamp_number}_create_sections.rb"
+        end
+        
       end
 
+      #######
       private
-
+      #######
+      
       def survey_migration_already_exists?
          Dir.glob("#{File.join(destination_root, File.join("db", "migrate"))}/[0-9]*_*.rb").grep(/\d+_create_survey.rb$/).first
+      end
+      
+      def section_migration_already_exists?
+         Dir.glob("#{File.join(destination_root, File.join("db", "migrate"))}/[0-9]*_*.rb").grep(/\d+_create_sections.rb$/).first
       end
     end
   end
