@@ -16,8 +16,10 @@ en:
     attributes:
       survey:
         name: Name
+        locale_name: Localized name
         finished: Finished
         description: Short description
+        locale_description: Localized short description
         active: "Activated?"
         attempts_number: Number of Maximum Attempts
         sections_attributes: Sections
@@ -25,11 +27,20 @@ en:
         head_number: Head Number
         name: Name
         description: Description
+        locale_head_number: Localized head number
+        locale_name: Localized name
+        locale_description: Localized Description
       question:
+        head_number: Head Number
         text: Question Text
+        description: Description
+        locale_head_number: Localized head number
+        locale_text: Localized Question Text
+        locale_description: Localized Description
         options_attributes: Options
       options:
         text: Option Text
+        locale_text: Localized Option Text
         correct: Correct
       attempt:
         answers_attributes: Answers

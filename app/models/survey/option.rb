@@ -20,9 +20,15 @@ class Survey::Option < ActiveRecord::Base
   def correct?
     self.correct == true
   end
-
+  
+  def text
+    I18n.locale == I18n.default_locale ? super : locale_text || super
+  end
+  
+  #######
   private
-
+  #######
+  
   def default_option_weigth
     if self.correct and self.weight == 0
       self.weight =  1

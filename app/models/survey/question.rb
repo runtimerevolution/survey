@@ -20,4 +20,16 @@ class Survey::Question < ActiveRecord::Base
   def incorrect_options
     options.incorrect
   end
+  
+  def text
+    I18n.locale == I18n.default_locale ? super : locale_text || super
+  end
+  
+  def description
+    I18n.locale == I18n.default_locale ? super : locale_description || super
+  end
+  
+  def head_number
+    I18n.locale == I18n.default_locale ? super : locale_head_number || super
+  end
 end

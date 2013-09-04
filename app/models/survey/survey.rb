@@ -36,7 +36,15 @@ class Survey::Survey < ActiveRecord::Base
     upper_bound = self.attempts_number
     not(current_number_of_attempts >= upper_bound and upper_bound != 0)
   end
-
+  
+  def name
+    I18n.locale == I18n.default_locale ? super : locale_name || super
+  end
+  
+  def description
+    I18n.locale == I18n.default_locale ? super : locale_description || super
+  end
+  
   #######
   private
   #######
