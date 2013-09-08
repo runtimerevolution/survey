@@ -11,13 +11,21 @@ class <%= get_scope.capitalize %>::AttemptsController < ApplicationController
 
   def create
     @survey = Survey::Survey.active.first
-    @attempt = @survey.attempts.new(params[:attempt])
+    @attempt = @survey.attempts.new(attempt_params)
     @attempt.participant = current_user
     if @attempt.valid? and @attempt.save
       redirect_to view_context.new_attempt_path, alert: I18n.t("attempts_controller.#{action_name}")
     else
+      flash.now[:error] = @attempt.errors.full_messages.join(', ')
       render :action => :new
     end
   end
+  
+  #######
+  private
+  #######
 
+  def attempt_params
+    params.require(:survey_attempt).permit(answers_attributes: [:question_id, :option_id, :option_text, :option_number])
+  end
 end
