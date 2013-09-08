@@ -5,7 +5,7 @@ class SurveyTest < ActiveSupport::TestCase
   test "should pass if user b was the more right answers" do
     user_a = create_user
     user_b = create_user
-    survey = create_survey_with_sections(4)
+    survey = create_survey_with_sections(2)
 
     create_attempt_for(user_a, survey)
     create_attempt_for(user_b, survey, :all => :right)
@@ -17,7 +17,7 @@ class SurveyTest < ActiveSupport::TestCase
   test "should pass if all the users has the same score" do
     user_a = create_user
     user_b = create_user
-    survey = create_survey_with_sections(4)
+    survey = create_survey_with_sections(2)
 
     create_attempt_for(user_a, survey, :all => :right)
     create_attempt_for(user_b, survey, :all => :right)
@@ -29,8 +29,8 @@ class SurveyTest < ActiveSupport::TestCase
   test "should pass if user a was the winner of survey" do
     user_a = create_user
     user_b = create_user
-    survey_a = create_survey_with_sections(4)
-    survey_b = create_survey_with_sections(8)
+    survey_a = create_survey_with_sections(2)
+    survey_b = create_survey_with_sections(4)
 
     create_attempt_for(user_a, survey_a)
     create_attempt_for(user_b, survey_a, :all => :right)

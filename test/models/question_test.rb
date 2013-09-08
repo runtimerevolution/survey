@@ -6,6 +6,24 @@ class QuestionTest < ActiveSupport::TestCase
     question = create_question
     should_be_persisted question
   end
+  
+  test "should create a valid question with multi choices type" do
+    question = create_question({:questions_type_id => Survey::QuestionsType.multi_choices})
+    should_be_persisted question
+    assert_equal question.questions_type_id, Survey::QuestionsType.multi_choices
+  end
+  
+  test "should create a valid question with accepted type" do
+    question = create_question({:questions_type_id => 99 })
+    
+    should_not_be_persisted question
+  end
+  
+  test "should not create a question with a empty or nil questions_type_id field" do
+    question = create_question({:questions_type_id => nil})
+    
+    should_not_be_persisted question
+  end
 
   test "should not create a question with a empty or nil text fields" do
     question1 = create_question({:text => nil})

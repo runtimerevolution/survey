@@ -6,7 +6,47 @@ class OptionTest < ActiveSupport::TestCase
     option = create_option
     should_be_persisted option
   end
-
+  
+  test "should create a valid option with multi choices type" do
+    option = create_option(:options_type_id => Survey::OptionsType.multi_choices)
+    
+    should_be_persisted option
+    assert_equal option.options_type_id, Survey::OptionsType.multi_choices
+  end
+  
+  test "should create a valid option with single choice type" do
+    option = create_option(:options_type_id => Survey::OptionsType.single_choice)
+    
+    should_be_persisted option
+    assert_equal option.options_type_id, Survey::OptionsType.single_choice
+  end
+  
+  test "should create a valid option with number type" do
+    option = create_option(:options_type_id => Survey::OptionsType.number)
+    
+    should_be_persisted option
+    assert_equal option.options_type_id, Survey::OptionsType.number
+  end
+  
+  test "should create a valid option with text type" do
+    option = create_option(:options_type_id => Survey::OptionsType.text)
+    
+    should_be_persisted option
+    assert_equal option.options_type_id, Survey::OptionsType.text
+  end
+  
+  test "should create a valid option with accepted type" do
+    option = create_option(:options_type_id => 99)
+    
+    should_not_be_persisted option
+  end
+  
+  test "should not create an option with a empty or nil options_type_id field" do
+    option = create_option(:options_type_id => nil)
+    
+    should_not_be_persisted option
+  end
+  
   test "should not create a option with empty or nil text fields" do
     optionA = create_option({:text => ""})
     optionB = create_option({:text => nil})

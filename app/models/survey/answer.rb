@@ -6,7 +6,9 @@ class Survey::Answer < ActiveRecord::Base
   belongs_to :question
 
   validates :option_id, :question_id, :presence => true
-  validates_uniqueness_of :question_id, :scope => [:attempt_id]
+  validates :option_number, :presence => true , :if => Proc.new{|a| a.option && a.option.options_type_id == Survey::OptionsType.number}
+  validates :option_text, :presence => true , :if => Proc.new{|a| a.option && a.option.options_type_id == Survey::OptionsType.text}
+  
   before_create :characterize_answer
 
   def value

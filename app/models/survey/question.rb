@@ -10,9 +10,10 @@ class Survey::Question < ActiveRecord::Base
   
 
   # validations
-  validates :text, :presence => true,
-    :allow_blank => false
-
+  validates :text, :presence => true, :allow_blank => false
+  validates :questions_type_id, :presence => true
+  validates_inclusion_of :questions_type_id, :in => Survey::QuestionsType.questions_type_ids, :unless => Proc.new{|q| q.questions_type_id.blank?}
+  
   def correct_options
     options.correct
   end

@@ -7,7 +7,10 @@ class Survey::Option < ActiveRecord::Base
   # validations
   validates :text, :presence => true,
     :allow_blank => false
-
+  
+  validates :options_type_id, :presence => true
+  validates_inclusion_of :options_type_id, :in => Survey::OptionsType.options_type_ids, :unless => Proc.new{|q| q.options_type_id.blank?}
+  
   scope :correct, -> {where(:correct => true) }
   scope :incorrect, -> {where(:correct => false) }
 

@@ -50,10 +50,12 @@ ActiveAdmin.register Survey::Survey do
           q.input :locale_text
           q.input :description
           q.input :locale_description
+          q.input :questions_type_id, :as => :select, :collection => Survey::QuestionsType.questions_types_title
           
           q.has_many :options do |a|
             a.input :text
             a.input :locale_text
+            a.input :options_type_id, :as => :select, :collection => Survey::OptionsType.options_types_title
             a.input  :correct
           end
         end
