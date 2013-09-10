@@ -1,5 +1,5 @@
 class Survey::QuestionsType
-  @@questions_types = {:multi_choices => 1}
+  @@questions_types = {:any => 1}
   
   def self.questions_types
     @@questions_types
