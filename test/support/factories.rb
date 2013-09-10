@@ -23,7 +23,7 @@ def create_question(opts = {})
   Survey::Question.create({
     :text =>  ::Faker::Lorem.paragraph(1),
     :options_attributes => {:option => correct_option_attributes}, 
-    :questions_type_id => Survey::QuestionsType.multi_choices
+    :questions_type_id => Survey::QuestionsType.general
   }.merge(opts))
 end
 
@@ -99,7 +99,7 @@ end
 
 def create_answer_with_option_type(options_type)
   option = create_option(:options_type_id => options_type)
-  question = create_question({:questions_type_id => Survey::QuestionsType.multi_choices})
+  question = create_question({:questions_type_id => Survey::QuestionsType.general})
   section = create_section()
   survey = create_survey()
   

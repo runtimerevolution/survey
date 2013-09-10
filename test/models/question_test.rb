@@ -8,9 +8,9 @@ class QuestionTest < ActiveSupport::TestCase
   end
   
   test "should create a valid question with multi choices type" do
-    question = create_question({:questions_type_id => Survey::QuestionsType.multi_choices})
+    question = create_question({:questions_type_id => Survey::QuestionsType.general})
     should_be_persisted question
-    assert_equal question.questions_type_id, Survey::QuestionsType.multi_choices
+    assert_equal question.questions_type_id, Survey::QuestionsType.general
   end
   
   test "should create a valid question with accepted type" do
