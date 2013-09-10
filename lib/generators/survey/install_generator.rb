@@ -6,10 +6,10 @@ module Survey
       def copy_migration
         timestamp_number = Time.now.utc.strftime("%Y%m%d%H%M%S").to_i
         
-        migration_files = [{new_file_name: :create_survey, origin_file_name: :migration},
-                           {new_file_name: :create_sections, origin_file_name: :migration_section},
-                           {new_file_name: :update_survey_tables, origin_file_name: :migration_update_survey_tables},
-                           {new_file_name: :add_types_to_questions_and_options, origin_file_name: :migration_add_types_to_questions_and_options}
+        migration_files = [{new_file_name: "create_survey", origin_file_name: "migration"},
+                           {new_file_name: "create_sections", origin_file_name: "migration_section"},
+                           {new_file_name: "update_survey_tables", origin_file_name: "migration_update_survey_tables"},
+                           {new_file_name: "add_types_to_questions_and_options", origin_file_name: "migration_add_types_to_questions_and_options"}
                           ]
         
         migration_files.each do |migration_file|
