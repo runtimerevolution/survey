@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/runtimerevolution/survey.png)](https://codeclimate.com/github/runtimerevolution/survey)
 ### Surveys on Rails...
 
-Survey is a Rails Engine that brings quizzes, surveys and contests into your Rails
+Survey is a Rails Engine that brings multi types of quizzes, surveys and contests into your Rails
 application. Survey models were designed to be flexible enough in order to be extended and
 integrated with your own models. Survey was initially extracted from a real application that handles contests and quizzes.
 
@@ -15,9 +15,11 @@ You can view the Survey documentation in RDoc format here:
 http://rubydoc.info/github/runtimerevolution/survey/frames
 
 ## Main Features:
- - Surveys can limit the number of attempts for each participant
+ - Surveys can limit the number of attempts for each participant, can have multiple sections
+ - Sections can have multiple questions
  - Questions can have multiple answers
- - Answers can have different weights
+ - Answers can have different weights and types (multi choices, single choice, number, text)
+ - Can use 2 languages (Main language field, Localized field) for Surveys, Sections, Questions and Answers attributes
  - Base Scaffold Support for Active Admin, Rails Admin and default Rails Controllers
  - Base calculation for scores
  - Easy integration with your project
@@ -71,31 +73,35 @@ class ContestsController < ApplicationController
 
   # create a new attempt to this survey
   def new
-    @attempt = survey.attempts.new
-    # build a number of possible answers equal to the number of options
-    survey.questions.size.times { @attempt.answers.build }
+    @survey =  Survey::Survey.active.last
+    @attempt = @survey.attempts.new
+    @attempt.answers.build
+    @participant = current_user # you have to decide what to do here
   end
 
   # create a new attempt in this survey
   # an attempt needs to have a participant assigned
   def create
-    @attempt = survey.attempts.new(params[:attempt])
-    # ensure that current user is assigned with this attempt
-    @attempt.participant = participant
+    @survey = Survey::Survey.active.last
+    @attempt = @survey.attempts.new(attempt_params)
+    @attempt.participant = current_user
     if @attempt.valid? and @attempt.save
-      redirect_to contests_path
+      redirect_to view_context.new_attempt_path, alert: I18n.t("attempts_controller.#{action_name}")
     else
+      flash.now[:error] = @attempt.errors.full_messages.join(', ')
       render :action => :new
     end
   end
+  
+  #######
+  private
+  #######
 
-  def participant
-    @participant ||= current_user
+  # Rails 4 Strong Params
+  def attempt_params
+    params.require(:survey_attempt).permit(answers_attributes: [:question_id, :option_id, :option_text, :option_number])
   end
-
-  def survey
-    @survey ||= Survey::Survey.active.first
-  end
+  
 end
 ```
 
@@ -105,26 +111,58 @@ end
 To control which page participants see you can use method `avaliable_for_participant?`
 that checks if the participant already spent his attempts.
 ```erb
+<h3><%= flash[:alert]%></h3>
+<h3><%= flash[:error]%></h3>
+
 <% if @survey.avaliable_for_participant?(@participant) %>
   <%= render 'form' %>
 <% else %>
-  Uupss, <%= @participant.name %> you have reach the maximum number of
-  attempts for <%= @survey.name %>
-<% end %>
+  <p>
+    <%= @participant.name %> spent all the possible attempts to answer this Survey
+  </p>
+<% end -%>
 
 <% # in _form.html.erb %>
-<%= form_for [:contests, @attempt] do |f| %>
+<h1><%= @survey.name %></h1>
+<p><%= @survey.description %></p>
+<%= form_for(@attempt, :url => attempt_scope(@attempt)) do |f| %>
   <%= f.fields_for :answers do |builder| %>
     <ul>
-      <% @survey.questions.each do |question| %>
-        <li>
-          <p><%= question.text %></p>
-          <%= builder.hidden_field :question_id, :value => question.id %>
-          <% question.options.each do |option| %>
-            <%= builder.check_box :option_id, {}, option.id, nil %>
-            <%= option.text %> <br/ >
-          <% end -%>
-        </li>
+      <% seq = 0 %>
+      <% @survey.sections.each do |section| %>
+        <p><span><%= "#{section.head_number} : " if section.head_number %></span><%= section.name%></p>
+        <p><%= section.description if section.description %></p>
+        <% section.questions.each do |question| %>
+          <% seq += 1 %>
+          <li>
+            <p><span><%= "#{question.head_number} : " if question.head_number %></span><%= question.text %></p>
+            <p><%= question.description if question.description %></p>
+            <% question.options.each do |option| %>
+              
+              
+              <% if option.options_type_id == Survey::OptionsType.multi_choices %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= check_box_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                <% seq += 1 %>
+              <% elsif option.options_type_id == Survey::OptionsType.single_choice %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= radio_button_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+              <% elsif option.options_type_id == Survey::OptionsType.number %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                <%= number_field_tag "survey_attempt[answers_attributes][#{seq}][option_number]", "", :style => "width: 40px;" %>
+                <% seq += 1 %>
+              <% elsif option.options_type_id == Survey::OptionsType.text %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                <%= text_field_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% seq += 1 %>
+              <% end %>
+              
+              <%= option.text %> <br/>
+            <% end -%>
+          </li>
+        <% end -%>
       <% end -%>
     </ul>
   <% end -%>
@@ -176,9 +214,8 @@ global_highest_score = survey_answers.high_score
 ```
 # Compability 
 ### Rails
-Survey supports Rails 3 and 4. For use in Rails 4, for now the protected_attributes gem is required and 
-should be included in the project Gemfile. Rails 4 support is recent, so some minor issues may still be present, 
-please report them.
+Survey supports Rails 3 and 4. For use in Rails 4 without using protected_attributes gem.
+Rails 4 support is recent, so some minor issues may still be present, please report them.
 
 ### Active Admin
 Only support versions of Active Admin higher than 0.3.1.
