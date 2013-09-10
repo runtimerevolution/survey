@@ -6,45 +6,26 @@ module Survey
       def copy_migration
         timestamp_number = Time.now.utc.strftime("%Y%m%d%H%M%S").to_i
         
-        unless survey_migration_already_exists?
-          copy_file "migration.rb", "db/migrate/#{timestamp_number}_create_survey.rb"
-        end
+        migration_files = [{new_file_name: :create_survey, origin_file_name: :migration},
+                           {new_file_name: :create_sections, origin_file_name: :migration_section},
+                           {new_file_name: :update_survey_tables, origin_file_name: :migration_update_survey_tables},
+                           {new_file_name: :add_types_to_questions_and_options, origin_file_name: :migration_add_types_to_questions_and_options}
+                          ]
         
-        unless section_migration_already_exists?
-          timestamp_number += 1
-          copy_file "migration_section.rb", "db/migrate/#{timestamp_number}_create_sections.rb"
+        migration_files.each do |migration_file|
+          unless already_exists?(migration_file[:new_file_name])
+            copy_file "#{migration_file[:origin_file_name]}.rb", "db/migrate/#{timestamp_number}_#{migration_file[:new_file_name]}.rb"
+            timestamp_number += 1
+          end
         end
-        
-        unless update_survey_tables_migration_already_exists?
-          timestamp_number += 1
-          copy_file "migration_update_survey_tables.rb", "db/migrate/#{timestamp_number}_update_survey_tables.rb"
-        end
-        
-        unless add_types_to_questions_and_options_migration_already_exists?
-          timestamp_number += 1
-          copy_file "migration_add_types_to_questions_and_options.rb", "db/migrate/#{timestamp_number}_add_types_to_questions_and_options.rb"
-        end
-        
       end
 
       #######
       private
       #######
       
-      def survey_migration_already_exists?
-         Dir.glob("#{File.join(destination_root, File.join("db", "migrate"))}/[0-9]*_*.rb").grep(/\d+_create_survey.rb$/).first
-      end
-      
-      def section_migration_already_exists?
-         Dir.glob("#{File.join(destination_root, File.join("db", "migrate"))}/[0-9]*_*.rb").grep(/\d+_create_sections.rb$/).first
-      end
-      
-      def update_survey_tables_migration_already_exists?
-         Dir.glob("#{File.join(destination_root, File.join("db", "migrate"))}/[0-9]*_*.rb").grep(/\d+_update_survey_tables.rb$/).first
-      end
-      
-      def add_types_to_questions_and_options_migration_already_exists?
-         Dir.glob("#{File.join(destination_root, File.join("db", "migrate"))}/[0-9]*_*.rb").grep(/\d+_add_types_to_questions_and_options.rb$/).first
+      def already_exists?(file_name)
+        Dir.glob("#{File.join(destination_root, File.join("db", "migrate"))}/[0-9]*_*.rb").grep(Regexp.new('\d+_' + file_name + '.rb$')).first
       end
     end
   end
