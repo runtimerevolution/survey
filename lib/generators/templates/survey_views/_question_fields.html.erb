@@ -1,8 +1,35 @@
 <li>
-  <legend>Question</legend>
+  <h2>Question</h2>
+  <div class="field">
+    <%= f.label :head_number %> <br />
+    <%= f.text_field :head_number %>
+  </div>
+  <div class="field">
+    <%= f.label :locale_head_number %> <br />
+    <%= f.text_field :locale_head_number %>
+  </div>
   <div class="field">
     <%= f.label :text %> <br />
     <%= f.text_field :text %>
+  </div>
+  <div class="field">
+    <%= f.label :locale_text %> <br />
+    <%= f.text_field :locale_text %>
+  </div>
+  <div class="field">
+    <%= f.label :description %> <br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :locale_description %> <br />
+    <%= f.text_area :locale_description %>
+  </div>
+  <div class="field">
+    <%= f.label :questions_type_id %> <br />
+    <%= f.select :questions_type_id, Survey::QuestionsType.questions_types_title %>
+  </div>
+  
+  <div class="field">
     <ul class="options">
       <%= f.fields_for :options do |builder| %>
           <%= render "option_fields", :f => builder %>

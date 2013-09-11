@@ -1,0 +1,29 @@
+<li>
+  <h2>Section</h2>
+  <%= f.hidden_field :id %>
+  <div class="field">
+    <%= f.label :head_number %> <br />
+    <%= f.text_field :locale_head_number %>
+  </div>
+  <div class="field">
+    <%= f.label :name %> <br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :locale_name %> <br />
+    <%= f.text_field :locale_name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %> <br />
+    <%= f.text_field :locale_description %>
+  </div>
+  <div class="field">
+    <ul>
+      <%= f.fields_for :questions do |builder| %>
+          <%= render "question_fields", :f => builder %>
+      <% end %>
+    </ul>
+    <br/ >
+    <%= link_to_add_field "Add a new Question", f, :questions %>
+  </div>
+</li>

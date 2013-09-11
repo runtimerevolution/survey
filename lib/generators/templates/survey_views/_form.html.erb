@@ -13,27 +13,38 @@
   <div class="field">
     <%= f.label :name %> <br />
     <%= f.text_field :name %> <br />
-    <%= f.label :attempts_number %> <br />
-    <%= f.text_field :attempts_number %> <br />
-    <%= f.label :active %> <br />
-    <%= f.select :active, ["true", "false"] %>
-  </div>
-
+  </div>  
+  <div class="field">
+    <%= f.label :locale_name %> <br />
+    <%= f.text_field :locale_name %> <br />
+  </div>  
   <div class="field">
     <%= f.label :description %> <br />
     <%= f.text_area :description, :size => "100x5" %> <br />
+  </div>
+  <div class="field">
+    <%= f.label :locale_description %> <br />
+    <%= f.text_area :locale_description %> <br />
+  </div>  
+  <div class="field">
+    <%= f.label :attempts_number %> <br />
+    <%= f.text_field :attempts_number %> <br />
+  </div>  
+  <div class="field">
+    <%= f.label :active %> <br />
+    <%= f.select :active, ["true", "false"] %>
   </div>
 
   <br/ >
 
   <div class="field">
     <ul>
-      <%= f.fields_for :questions do |builder| %>
-          <%= render "question_fields", :f => builder %>
+      <%= f.fields_for :sections do |builder| %>
+          <%= render "section_fields", :f => builder %>
       <% end %>
     </ul>
     <br/ >
-    <%= link_to_add_field "Add a new Question", f, :questions %>
+    <%= link_to_add_field "Add a new Section", f, :sections %>
   </div>
 
   <br/ >
