@@ -9,6 +9,7 @@ class Survey::Section < ActiveRecord::Base
   
   # validations
   validates :name, :presence => true, :allow_blank => false
+  validate  :check_questions_requirements
   
   def name
     I18n.locale == I18n.default_locale ? super : locale_name || super
@@ -20,5 +21,16 @@ class Survey::Section < ActiveRecord::Base
   
   def head_number
     I18n.locale == I18n.default_locale ? super : locale_head_number || super
+  end
+  
+  #######
+  private
+  #######
+  
+  # a section only can be saved if has one or more questions and options
+  def check_questions_requirements
+    if self.questions.empty? || self.questions.collect(&:options).empty?
+      errors.add(:base, "Section without questions or options cannot be saved")
+    end
   end
 end

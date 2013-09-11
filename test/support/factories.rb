@@ -56,7 +56,7 @@ def create_attempt(opts ={})
   end
 end
 
-def create_survey_with_sections(num, sections_num = 2)
+def create_survey_with_sections(num, sections_num = 1)
   survey = create_survey
   sections_num.times do
     section = create_section
@@ -69,6 +69,7 @@ def create_survey_with_sections(num, sections_num = 2)
     end
     survey.sections << section
   end
+  survey.save
   survey
 end
 

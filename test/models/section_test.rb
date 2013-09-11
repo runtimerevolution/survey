@@ -1,10 +1,10 @@
 class SectionTest < ActiveSupport::TestCase
-
-  test "should create a valid section" do
+  
+  test "should not create a valid section without questions" do
     section = create_section
-    should_be_persisted section
+    should_not_be_persisted section
   end
-
+  
   test "should create a section with 3 questions" do
     num_questions = 3
     survey = create_survey_with_sections(num_questions, 1)

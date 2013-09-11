@@ -1,8 +1,8 @@
 class SurveyTest < ActiveSupport::TestCase
 
-  test "should create a valid survey without questions" do
+  test "should not create a valid survey without sections" do
     survey = create_survey
-    should_be_persisted survey
+    should_not_be_persisted survey
   end
 
   test "should not create a  survey with active flag true and empty questions collection" do
