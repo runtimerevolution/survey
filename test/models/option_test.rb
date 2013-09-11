@@ -47,11 +47,11 @@ class OptionTest < ActiveSupport::TestCase
     should_not_be_persisted option
   end
   
-  test "should not create a option with empty or nil text fields" do
+  test "should create a option with empty or nil text fields" do
     optionA = create_option({:text => ""})
     optionB = create_option({:text => nil})
-    should_not_be_persisted optionA
-    should_not_be_persisted optionB
+    should_be_persisted optionA
+    should_be_persisted optionB
   end
 
   test "should be true if option A is correct and option B incorrect" do
