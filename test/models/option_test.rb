@@ -47,13 +47,30 @@ class OptionTest < ActiveSupport::TestCase
     should_not_be_persisted option
   end
   
-  test "should create a option with empty or nil text fields" do
-    optionA = create_option({:text => ""})
-    optionB = create_option({:text => nil})
+  test "should create a option with empty or nil text fields for text or number types" do
+    optionA = create_option({:text => "", :options_type_id => Survey::OptionsType.text})
+    optionB = create_option({:text => nil, :options_type_id => Survey::OptionsType.text})
+    optionC = create_option({:text => "", :options_type_id => Survey::OptionsType.number})
+    optionD = create_option({:text => nil, :options_type_id => Survey::OptionsType.number})
+    
     should_be_persisted optionA
     should_be_persisted optionB
+    should_be_persisted optionC
+    should_be_persisted optionD
   end
 
+  test "should not create a option with empty or nil text fields for multi_choices or single_choice types" do
+    optionA = create_option({:text => "", :options_type_id => Survey::OptionsType.multi_choices})
+    optionB = create_option({:text => nil, :options_type_id => Survey::OptionsType.multi_choices})
+    optionC = create_option({:text => "", :options_type_id => Survey::OptionsType.single_choice})
+    optionD = create_option({:text => nil, :options_type_id => Survey::OptionsType.single_choice})
+    
+    should_not_be_persisted optionA
+    should_not_be_persisted optionB
+    should_not_be_persisted optionC
+    should_not_be_persisted optionD
+  end
+  
   test "should be true if option A is correct and option B incorrect" do
     optionA = create_option({:correct => false})
     optionB = create_option({:correct => true})

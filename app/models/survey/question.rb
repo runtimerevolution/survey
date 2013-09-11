@@ -5,7 +5,7 @@ class Survey::Question < ActiveRecord::Base
   has_many   :options
   belongs_to :section
   accepts_nested_attributes_for :options,
-    :reject_if => ->(a) { a[:text].blank? },
+    :reject_if => ->(a) { a[:options_type_id].blank? },
       :allow_destroy => true
   
 

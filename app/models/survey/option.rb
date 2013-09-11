@@ -5,8 +5,9 @@ class Survey::Option < ActiveRecord::Base
   belongs_to :question
   
   # validations
+  validates :text, :presence => true, :allow_blank => false, :if => Proc.new{|o| o.options_type_id == Survey::OptionsType.multi_choices || o.options_type_id == Survey::OptionsType.single_choice }
   validates :options_type_id, :presence => true
-  validates_inclusion_of :options_type_id, :in => Survey::OptionsType.options_type_ids, :unless => Proc.new{|q| q.options_type_id.blank?}
+  validates_inclusion_of :options_type_id, :in => Survey::OptionsType.options_type_ids, :unless => Proc.new{|o| o.options_type_id.blank?}
   
   scope :correct, -> {where(:correct => true) }
   scope :incorrect, -> {where(:correct => false) }
