@@ -51,8 +51,8 @@ class Survey::Survey < ActiveRecord::Base
   
   # a surveys only can be activated if has one or more sections and questions
   def check_active_requirements
-    if self.sections.empty?
-      errors.add(:base, "Survey without sections cannot be saved")
+    if self.sections.empty? || self.sections.collect(&:questions).empty?
+      errors.add(:base, "Survey without sections or questions cannot be saved")
     end
   end
 end
