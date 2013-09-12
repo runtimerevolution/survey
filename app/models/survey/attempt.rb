@@ -8,8 +8,12 @@ class Survey::Attempt < ActiveRecord::Base
   belongs_to :survey
   belongs_to :participant, :polymorphic => true
 
+  #rails 3 attr_accessible support
+  if Rails::VERSION::MAJOR < 4
+    attr_accessible :participant_id, :survey_id, :answers_attributes, :survey, :winner, :participant
+  end
+  
   # validations
-
   validates :participant_id, :participant_type,
     :presence => true
     

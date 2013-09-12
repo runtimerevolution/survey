@@ -6,6 +6,11 @@ class Survey::Survey < ActiveRecord::Base
   has_many :attempts
   has_many :sections
   
+  #rails 3 attr_accessible support
+  if Rails::VERSION::MAJOR < 4
+    attr_accessible :name, :description, :finished, :active, :sections_attributes, :attempts_number, :locale_name, :locale_description
+  end
+  
   accepts_nested_attributes_for :sections,
     :reject_if => ->(q) { q[:name].blank? }, :allow_destroy => true
     

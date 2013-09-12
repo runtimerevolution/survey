@@ -9,6 +9,11 @@ class Survey::Answer < ActiveRecord::Base
   validates :option_number, :presence => true , :if => Proc.new{|a| a.option && a.option.options_type_id == Survey::OptionsType.number}
   validates :option_text, :presence => true , :if => Proc.new{|a| a.option && a.option.options_type_id == Survey::OptionsType.text}
   
+  #rails 3 attr_accessible support
+  if Rails::VERSION::MAJOR < 4
+    attr_accessible :option, :attempt, :question, :question_id, :option_id, :attempt_id, :option_text, :option_number
+  end
+  
   before_create :characterize_answer
 
   def value

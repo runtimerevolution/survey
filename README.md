@@ -99,7 +99,11 @@ class ContestsController < ApplicationController
 
   # Rails 4 Strong Params
   def attempt_params
-    params.require(:survey_attempt).permit(answers_attributes: [:question_id, :option_id, :option_text, :option_number])
+    if Rails::VERSION::MAJOR < 4
+      params[:survey_attempt]
+    else
+      params.require(:survey_attempt).permit(answers_attributes: [:question_id, :option_id, :option_text, :option_number])
+    end
   end
   
 end

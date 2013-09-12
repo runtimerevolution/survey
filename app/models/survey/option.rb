@@ -4,6 +4,11 @@ class Survey::Option < ActiveRecord::Base
   #relations
   belongs_to :question
   
+  #rails 3 attr_accessible support
+  if Rails::VERSION::MAJOR < 4
+    attr_accessible :text, :correct, :weight, :question_id, :locale_text, :options_type_id
+  end
+  
   # validations
   validates :text, :presence => true, :allow_blank => false, :if => Proc.new{|o| o.options_type_id == Survey::OptionsType.multi_choices || o.options_type_id == Survey::OptionsType.single_choice }
   validates :options_type_id, :presence => true

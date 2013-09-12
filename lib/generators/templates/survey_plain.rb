@@ -48,9 +48,13 @@ class <%= get_scope.capitalize %>::SurveysController < ApplicationController
 
   # Rails 4 Strong Params
   def survey_params
-    protected_attrs =  ["created_at", "updated_at"]
-    params.require(:survey_survey).permit(Survey::Survey.new.attributes.keys - protected_attrs, 
-                                          sections_attributes: Survey::Section.new.attributes.keys - protected_attrs,
-                                          questions_attributes: Survey::Question.new.attributes.keys - protected_attrs)
+    if Rails::VERSION::MAJOR < 4
+      params[:survey_survey]
+    else
+      protected_attrs =  ["created_at", "updated_at"]
+      params.require(:survey_survey).permit(Survey::Survey.new.attributes.keys - protected_attrs, 
+                                            sections_attributes: Survey::Section.new.attributes.keys - protected_attrs,
+                                            questions_attributes: Survey::Question.new.attributes.keys - protected_attrs)
+    end
   end
 end

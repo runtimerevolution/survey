@@ -4,6 +4,12 @@ class Survey::Section < ActiveRecord::Base
   
   # relations
   has_many :questions
+  
+  #rails 3 attr_accessible support
+  if Rails::VERSION::MAJOR < 4
+    attr_accessible :questions_attributes, :head_number, :name, :description , :survey_id, :locale_head_number, :locale_name, :locale_description
+  end
+  
   accepts_nested_attributes_for :questions,
     :reject_if => ->(q) { q[:text].blank? }, :allow_destroy => true
   

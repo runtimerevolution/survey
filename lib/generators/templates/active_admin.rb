@@ -65,9 +65,11 @@ ActiveAdmin.register Survey::Survey do
     f.buttons
   end
   
-  controller do
-    def permitted_params
-      params.permit!
+  if Rails::VERSION::MAJOR >= 4
+    controller do
+      def permitted_params
+        params.permit!
+      end
     end
   end
 end
