@@ -13,15 +13,26 @@
             <p><span><%= "#{question.head_number} : " if question.head_number %></span><%= question.text %></p>
             <p><%= question.description if question.description %></p>
             <% question.options.each do |option| %>
-              
-              
-              <% if option.options_type_id == Survey::OptionsType.multi_choices %>
+            
+              <% if [Survey::OptionsType.multi_choices, Survey::OptionsType.multi_choices_with_text, Survey::OptionsType.multi_choices_with_number].include? option.options_type_id %>
                 <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
                 <%= check_box_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                
+                <% if option.options_type_id == Survey::OptionsType.multi_choices_with_text %>
+                  <%= text_field_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% elsif option.options_type_id == Survey::OptionsType.multi_choices_with_number %>
+                  <%= number_field_tag "survey_attempt[answers_attributes][#{seq}][option_number]", "", class: "form-control" %>
+                <% end %>
                 <% seq += 1 %>
-              <% elsif option.options_type_id == Survey::OptionsType.single_choice %>
+              <% elsif [Survey::OptionsType.single_choice, Survey::OptionsType.single_choice_with_text].include? option.options_type_id %>
                 <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
                 <%= radio_button_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                
+                <% if option.options_type_id == Survey::OptionsType.single_choice_with_text %>
+                  <%= text_field_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% elsif option.options_type_id == Survey::OptionsType.single_choice_with_number %>
+                  <%= number_field_tag "survey_attempt[answers_attributes][#{seq}][option_number]", "", class: "form-control" %>
+                <% end %>
               <% elsif option.options_type_id == Survey::OptionsType.number %>
                 <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
                 <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>

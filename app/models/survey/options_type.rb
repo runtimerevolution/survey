@@ -1,5 +1,12 @@
 class Survey::OptionsType
-  @@options_types = {:multi_choices => 1, :single_choice => 2, :number => 3, :text => 4}
+  @@options_types = {:multi_choices => 1, 
+                     :single_choice => 2, 
+                     :number => 3, 
+                     :text => 4, 
+                     :multi_choices_with_text => 5, 
+                     :single_choice_with_text => 6,
+                     :multi_choices_with_number => 7, 
+                     :single_choice_with_number => 8}
   
   def self.options_types
     @@options_types

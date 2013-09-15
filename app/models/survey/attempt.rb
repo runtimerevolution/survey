@@ -42,7 +42,7 @@ class Survey::Attempt < ActiveRecord::Base
 
   # callbacks
 
-  validate :check_number_of_attempts_by_survey
+  validate :check_number_of_attempts_by_survey, :on => :create
   before_create :collect_scores
 
   def correct_answers

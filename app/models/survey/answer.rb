@@ -6,15 +6,16 @@ class Survey::Answer < ActiveRecord::Base
   belongs_to :question
 
   validates :option_id, :question_id, :presence => true
-  validates :option_number, :presence => true , :if => Proc.new{|a| a.option && a.option.options_type_id == Survey::OptionsType.number}
-  validates :option_text, :presence => true , :if => Proc.new{|a| a.option && a.option.options_type_id == Survey::OptionsType.text}
-  
+  validates :option_text, :presence => true , :if => Proc.new{|a| a.option && ([Survey::OptionsType.text, Survey::OptionsType.multi_choices_with_text, Survey::OptionsType.single_choice_with_text].include?(a.option.options_type_id)) }
+  validates :option_number, :presence => true , :if => Proc.new{|a| a.option && ([Survey::OptionsType.number, Survey::OptionsType.multi_choices_with_number, Survey::OptionsType.single_choice_with_number].include?(a.option.options_type_id)) }
+    
   #rails 3 attr_accessible support
   if Rails::VERSION::MAJOR < 4
     attr_accessible :option, :attempt, :question, :question_id, :option_id, :attempt_id, :option_text, :option_number
   end
   
   before_create :characterize_answer
+  before_save :check_single_choice_with_field_case
 
   def value
     unless self.option == nil
@@ -28,12 +29,20 @@ class Survey::Answer < ActiveRecord::Base
     self.correct or self.option.correct?
   end
 
+  #######
   private
-
+  #######
+  
   def characterize_answer
     if option.correct?
       self.correct = true
     end
   end
 
+  def check_single_choice_with_field_case
+    if [Survey::OptionsType.multi_choices, Survey::OptionsType.single_choice].include?(self.option.options_type_id)
+      self.option_text = nil 
+      self.option_number = nil
+    end
+  end
 end

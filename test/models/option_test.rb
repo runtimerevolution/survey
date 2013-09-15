@@ -50,11 +50,13 @@ class OptionTest < ActiveSupport::TestCase
   test "should create a option with empty or nil text fields for text or number types" do
     optionA = create_option({:text => "", :options_type_id => Survey::OptionsType.text})
     optionB = create_option({:text => nil, :options_type_id => Survey::OptionsType.text})
+    
     optionC = create_option({:text => "", :options_type_id => Survey::OptionsType.number})
     optionD = create_option({:text => nil, :options_type_id => Survey::OptionsType.number})
     
     should_be_persisted optionA
     should_be_persisted optionB
+    
     should_be_persisted optionC
     should_be_persisted optionD
   end
@@ -62,13 +64,39 @@ class OptionTest < ActiveSupport::TestCase
   test "should not create a option with empty or nil text fields for multi_choices or single_choice types" do
     optionA = create_option({:text => "", :options_type_id => Survey::OptionsType.multi_choices})
     optionB = create_option({:text => nil, :options_type_id => Survey::OptionsType.multi_choices})
+    
     optionC = create_option({:text => "", :options_type_id => Survey::OptionsType.single_choice})
     optionD = create_option({:text => nil, :options_type_id => Survey::OptionsType.single_choice})
     
+    optionE = create_option({:text => "", :options_type_id => Survey::OptionsType.multi_choices_with_text})
+    optionF = create_option({:text => nil, :options_type_id => Survey::OptionsType.multi_choices_with_text})
+    
+    optionG = create_option({:text => "", :options_type_id => Survey::OptionsType.single_choice_with_text})
+    optionH = create_option({:text => nil, :options_type_id => Survey::OptionsType.single_choice_with_text})
+    
+    optionI = create_option({:text => "", :options_type_id => Survey::OptionsType.multi_choices_with_number})
+    optionJ = create_option({:text => nil, :options_type_id => Survey::OptionsType.multi_choices_with_number})
+    
+    optionK = create_option({:text => "", :options_type_id => Survey::OptionsType.single_choice_with_number})
+    optionL = create_option({:text => nil, :options_type_id => Survey::OptionsType.single_choice_with_number})
+    
     should_not_be_persisted optionA
     should_not_be_persisted optionB
+    
     should_not_be_persisted optionC
     should_not_be_persisted optionD
+    
+    should_not_be_persisted optionE
+    should_not_be_persisted optionF
+    
+    should_not_be_persisted optionG
+    should_not_be_persisted optionH
+    
+    should_not_be_persisted optionI
+    should_not_be_persisted optionJ
+    
+    should_not_be_persisted optionK
+    should_not_be_persisted optionL
   end
   
   test "should be true if option A is correct and option B incorrect" do
