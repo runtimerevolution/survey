@@ -30,7 +30,7 @@ class <%= get_scope.capitalize %>::AttemptsController < ApplicationController
     if Rails::VERSION::MAJOR < 4
       params[:survey_attempt]
     else
-      params.require(:survey_attempt).permit(answers_attributes: [:question_id, :option_id, :option_text, :option_number])
+      params.require(:survey_attempt).permit(answers_attributes: [:question_id, :option_id, :option_text, :option_number, :predefined_value_id])
     end
   end
 end

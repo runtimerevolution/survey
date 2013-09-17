@@ -8,6 +8,7 @@ en:
   survey_details: Survey Details
   questions: Questions
   sections: Sections
+  predefined_values: Predefined Values
   activerecord:
     models:
       survey:
@@ -38,6 +39,7 @@ en:
         locale_text: Localized Question Text
         locale_description: Localized Description
         options_attributes: Options
+        predefined_values_attributes: Predefined Values
       options:
         text: Option Text
         locale_text: Localized Option Text

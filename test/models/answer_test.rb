@@ -108,6 +108,29 @@ class AnswerTest < ActiveSupport::TestCase
     assert_equal answer_try_1.option_text, nil
   end
   
+  test "should create an answer with a predefined_value_id field for single_choice type" do
+    survey, option, attempt, question = create_answer_with_option_type(Survey::OptionsType.single_choice)
+    predefined_value = create_predefined_value
+    question.predefined_values << predefined_value
+    question.save
+    answer_try_1 = create_answer(:option => option, :attempt => attempt, :question => question, :predefined_value_id => predefined_value.id)
+  
+    should_be_persisted survey
+    should_be_persisted question
+    should_be_persisted answer_try_1
+    assert_equal answer_try_1.predefined_value_id, predefined_value.id
+  end
+  
+  test "should not create an answer with an empty predefined_value_id field for single_choice type" do
+    survey, option, attempt, question = create_answer_with_option_type(Survey::OptionsType.single_choice)
+    question.predefined_values << create_predefined_value
+    question.save
+    answer_try_1 = create_answer(:option => option, :attempt => attempt, :question => question, :predefined_value_id => nil)
+  
+    should_be_persisted survey
+    should_not_be_persisted answer_try_1
+  end
+  
   test "can create an answer already made to the same attempt" do
     answer_try_1  = create_answer
     attempt  = answer_try_1.attempt

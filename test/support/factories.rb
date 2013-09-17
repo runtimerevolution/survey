@@ -27,6 +27,13 @@ def create_question(opts = {})
   }.merge(opts))
 end
 
+# Create a Survey::PredefinedValue
+def create_predefined_value(opts = {})
+  Survey::PredefinedValue.create({
+    :name =>  ::Faker::Name.name
+  }.merge(opts))
+end
+
 # Create a Survey::option but not saved
 def new_option(opts = {})
   Survey::Option.new(option_attributes.merge(opts))

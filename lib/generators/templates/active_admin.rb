@@ -52,6 +52,14 @@ ActiveAdmin.register Survey::Survey do
           q.input :locale_description
           q.input :questions_type_id, :as => :select, :collection => Survey::QuestionsType.questions_types_title
           
+          q.inputs I18n.t("predefined_values") do
+            q.has_many :predefined_values do |p|
+              p.input :head_number
+              p.input :name
+              p.input :locale_name
+            end
+          end
+          
           q.has_many :options do |a|
             a.input :head_number
             a.input :text
