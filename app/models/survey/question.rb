@@ -33,14 +33,14 @@ class Survey::Question < ActiveRecord::Base
   end
   
   def text
-    I18n.locale == I18n.default_locale ? super : locale_text || super
+    I18n.locale == I18n.default_locale ? super : locale_text.blank? ? super : locale_text
   end
   
   def description
-    I18n.locale == I18n.default_locale ? super : locale_description || super
+    I18n.locale == I18n.default_locale ? super : locale_description.blank? ? super : locale_description
   end
   
   def head_number
-    I18n.locale == I18n.default_locale ? super : locale_head_number || super
+    I18n.locale == I18n.default_locale ? super : locale_head_number.blank? ? super : locale_head_number
   end
 end

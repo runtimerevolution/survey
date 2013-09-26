@@ -43,11 +43,11 @@ class Survey::Survey < ActiveRecord::Base
   end
   
   def name
-    I18n.locale == I18n.default_locale ? super : locale_name || super
+    I18n.locale == I18n.default_locale ? super : locale_name.blank? ? super : locale_name
   end
   
   def description
-    I18n.locale == I18n.default_locale ? super : locale_description || super
+    I18n.locale == I18n.default_locale ? super : locale_description.blank? ? super : locale_description
   end
   
   #######

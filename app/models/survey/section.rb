@@ -18,15 +18,15 @@ class Survey::Section < ActiveRecord::Base
   validate  :check_questions_requirements
   
   def name
-    I18n.locale == I18n.default_locale ? super : locale_name || super
+    I18n.locale == I18n.default_locale ? super : locale_name.blank? ? super : locale_name
   end
   
   def description
-    I18n.locale == I18n.default_locale ? super : locale_description || super
+    I18n.locale == I18n.default_locale ? super : locale_description.blank? ? super : locale_description
   end
   
   def head_number
-    I18n.locale == I18n.default_locale ? super : locale_head_number || super
+    I18n.locale == I18n.default_locale ? super : locale_head_number.blank? ? super : locale_head_number
   end
   
   #######

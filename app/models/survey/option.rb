@@ -28,7 +28,7 @@ class Survey::Option < ActiveRecord::Base
   end
   
   def text
-    I18n.locale == I18n.default_locale ? super : locale_text || super
+    I18n.locale == I18n.default_locale ? super : locale_text.blank? ? super : locale_text
   end
   
   #######
