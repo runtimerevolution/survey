@@ -29,6 +29,11 @@ class Survey::Section < ActiveRecord::Base
     I18n.locale == I18n.default_locale ? super : locale_head_number.blank? ? super : locale_head_number
   end
   
+  def full_name
+    head_name = self.head_number.blank? ? "" : "#{self.head_number}: "
+    "#{head_name}#{self.name}"
+  end
+  
   #######
   private
   #######
