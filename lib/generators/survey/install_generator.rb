@@ -11,7 +11,8 @@ module Survey
                            {new_file_name: "update_survey_tables", origin_file_name: "migration_update_survey_tables"},
                            {new_file_name: "add_types_to_questions_and_options", origin_file_name: "migration_add_types_to_questions_and_options"},
                            {new_file_name: "add_head_number_to_options_table", origin_file_name: "migration_add_head_number_to_options_table"},
-                           {new_file_name: "create_predefined_values_table", origin_file_name: "migration_create_predefined_values_table"}
+                           {new_file_name: "create_predefined_values_table", origin_file_name: "migration_create_predefined_values_table"},
+                           {new_file_name: "add_mandatory_to_questions_table", origin_file_name: "migration_add_mandatory_to_questions_table"}
                           ]
         
         migration_files.each do |migration_file|

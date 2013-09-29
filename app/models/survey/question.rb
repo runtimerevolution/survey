@@ -24,6 +24,8 @@ class Survey::Question < ActiveRecord::Base
   validates :questions_type_id, :presence => true
   validates_inclusion_of :questions_type_id, :in => Survey::QuestionsType.questions_type_ids, :unless => Proc.new{|q| q.questions_type_id.blank?}
   
+  scope :mandatory_only, -> { where(:mandatory => true) }
+  
   def correct_options
     options.correct
   end

@@ -23,7 +23,8 @@ def create_question(opts = {})
   Survey::Question.create({
     :text =>  ::Faker::Lorem.paragraph(1),
     :options_attributes => {:option => correct_option_attributes}, 
-    :questions_type_id => Survey::QuestionsType.general
+    :questions_type_id => Survey::QuestionsType.general,
+    :mandatory => false
   }.merge(opts))
 end
 
