@@ -45,4 +45,8 @@ class Survey::Question < ActiveRecord::Base
   def head_number
     I18n.locale == I18n.default_locale ? super : locale_head_number.blank? ? super : locale_head_number
   end
+  
+  def mandatory?
+    self.mandatory == true
+  end
 end
