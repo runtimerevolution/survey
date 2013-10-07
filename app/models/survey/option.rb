@@ -10,7 +10,7 @@ class Survey::Option < ActiveRecord::Base
   end
   
   # validations
-  validates :text, :presence => true, :allow_blank => false, :if => Proc.new{|o| [Survey::OptionsType.multi_choices, Survey::OptionsType.single_choice, Survey::OptionsType.single_choice_with_text, Survey::OptionsType.single_choice_with_number, Survey::OptionsType.multi_choices_with_text, Survey::OptionsType.multi_choices_with_number].include?(o.options_type_id) }
+  validates :text, :presence => true, :allow_blank => false, :if => Proc.new{|o| [Survey::OptionsType.multi_choices, Survey::OptionsType.single_choice, Survey::OptionsType.single_choice_with_text, Survey::OptionsType.single_choice_with_number, Survey::OptionsType.multi_choices_with_text, Survey::OptionsType.multi_choices_with_number, Survey::OptionsType.large_text].include?(o.options_type_id) }
   validates :options_type_id, :presence => true
   validates_inclusion_of :options_type_id, :in => Survey::OptionsType.options_type_ids, :unless => Proc.new{|o| o.options_type_id.blank?}
   

@@ -35,6 +35,13 @@ class OptionTest < ActiveSupport::TestCase
     assert_equal option.options_type_id, Survey::OptionsType.text
   end
   
+  test "should create a valid option with large_text type" do
+    option = create_option(:options_type_id => Survey::OptionsType.large_text)
+    
+    should_be_persisted option
+    assert_equal option.options_type_id, Survey::OptionsType.large_text
+  end
+  
   test "should create a valid option with accepted type" do
     option = create_option(:options_type_id => 99)
     

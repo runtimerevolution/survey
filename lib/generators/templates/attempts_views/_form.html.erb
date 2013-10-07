@@ -43,6 +43,11 @@
                 <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
                 <%= text_field_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
                 <% seq += 1 %>
+              <% elsif option.options_type_id == Survey::OptionsType.large_text %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                <%= text_area_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% seq += 1 %>
               <% end %>
               
               <%= option.text %> <br/>

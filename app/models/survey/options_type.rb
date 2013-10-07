@@ -6,7 +6,8 @@ class Survey::OptionsType
                      :multi_choices_with_text => 5, 
                      :single_choice_with_text => 6,
                      :multi_choices_with_number => 7, 
-                     :single_choice_with_number => 8}
+                     :single_choice_with_number => 8,
+                     :large_text => 9}
   
   def self.options_types
     @@options_types

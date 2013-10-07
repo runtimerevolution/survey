@@ -106,9 +106,9 @@ def create_answer(opts = {})
   Survey::Answer.create({:option => option, :attempt => attempt, :question => question}.merge(opts))
 end
 
-def create_answer_with_option_type(options_type)
+def create_answer_with_option_type(options_type, mandatory = false)
   option = create_option(:options_type_id => options_type)
-  question = create_question({:questions_type_id => Survey::QuestionsType.general})
+  question = create_question({:questions_type_id => Survey::QuestionsType.general, :mandatory => mandatory})
   section = create_section()
   survey = create_survey()
   
