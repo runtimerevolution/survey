@@ -1,21 +1,21 @@
-# Survey
+# questionaire
 
-[![Build Status](https://travis-ci.org/runtimerevolution/survey.png?branch=master)](https://travis-ci.org/runtimerevolution/survey)
-[![Code Climate](https://codeclimate.com/github/runtimerevolution/survey.png)](https://codeclimate.com/github/runtimerevolution/survey)
-### Surveys on Rails...
+[![Build Status](https://travis-ci.org/dr-click/survey.png?branch=master)](https://travis-ci.org/dr-click/questionaire)
+[![Code Climate](https://codeclimate.com/github/dr-click/survey.png)](https://codeclimate.com/github/dr-click/questionaire)
+### questionaire on Rails...
 
-Survey is a Rails Engine that brings multi types of quizzes, surveys and contests into your Rails
-application. Survey models were designed to be flexible enough in order to be extended and
-integrated with your own models. Survey was initially extracted from a real application that handles contests and quizzes.
+Questionaire is a Rails Engine that brings multi types of quizzes, surveys and contests into your Rails
+application. Questionaire models were designed to be flexible enough in order to be extended and
+integrated with your own models. Questionaire was initially extracted from a real application that handles contests and quizzes.
 
 ## Documentation
 
-You can view the Survey documentation in RDoc format here:
+You can view the Questionaire documentation in RDoc format here:
 
-http://rubydoc.info/github/runtimerevolution/survey/frames
+http://rubydoc.info/github/dr-click/questionaire/master/frames
 
 ## Main Features:
- - Surveys can limit the number of attempts for each participant, can have multiple sections
+ - Questionaire can limit the number of attempts for each participant, can have multiple sections
  - Sections can have multiple questions
  - Questions can have multiple answers
  - Answers can have different weights and types (multi choices, single choice, number, text)
@@ -28,7 +28,7 @@ http://rubydoc.info/github/runtimerevolution/survey/frames
 
 Add survey to your Gemfile:
 ```ruby
-gem 'survey', :git => 'git://github.com/runtimerevolution/survey.git'
+gem 'questionaire', github: 'dr-click/questionaire', branch: 'master', :require=>"survey"
 
 ```
 Then run bundle to install the Gem:
@@ -62,7 +62,7 @@ you can pass the attribute `attempts_number` when creating them.
 # Each Participant can respond 4 times this survey
 Survey::Survey.new(:name => "Star Wars Quiz", :attempts_number => 4)
 ```
-## Surveys used in your controllers
+## Questionaire used in your controllers
 In this example we are using the current_user helper
 but you can do it in the way you want.
 
