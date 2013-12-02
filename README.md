@@ -224,5 +224,6 @@ Rails 4 support is recent, so some minor issues may still be present, please rep
 Only support versions of Active Admin higher than 0.3.1.
 
 # License
+- Modified by [Dr-Click](http://github.com/dr-click)
 - Copyright © 2013 [Runtime Revolution](http://www.runtime-revolution.com), released under the MIT license.
 - This repository was forked from the original one : https://github.com/runtimerevolution/survey
