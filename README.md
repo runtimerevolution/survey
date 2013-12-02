@@ -1,6 +1,5 @@
-# questionaire
+# Questionaire
 
-[![Build Status](https://travis-ci.org/dr-click/survey.png?branch=master)](https://travis-ci.org/dr-click/questionaire)
 [![Code Climate](https://codeclimate.com/github/dr-click/survey.png)](https://codeclimate.com/github/dr-click/questionaire)
 ### questionaire on Rails...
 
@@ -102,7 +101,7 @@ class ContestsController < ApplicationController
     if Rails::VERSION::MAJOR < 4
       params[:survey_attempt]
     else
-      params.require(:survey_attempt).permit(answers_attributes: [:question_id, :option_id, :option_text, :option_number])
+      params.require(:survey_attempt).permit(answers_attributes: [:id, :question_id, :option_id, :option_text, :option_number, :predefined_value_id, :_destroy, :finished])
     end
   end
   
@@ -224,13 +223,6 @@ Rails 4 support is recent, so some minor issues may still be present, please rep
 ### Active Admin
 Only support versions of Active Admin higher than 0.3.1.
 
-# Roadmap
-
-- Add a form builder or a helper to improve the creation of Survey forms.
-- Add polymorphic relations to help the survey be extended with subclasses.
-- Allow adding new fields without breaking the existent logic.
-
 # License
-Copyright © 2013 [Runtime Revolution](http://www.runtime-revolution.com), released under the MIT license.
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/59be37fe81712a1a4dadc798325a30ee "githalytics.com")](http://githalytics.com/runtimerevolution/survey)
+- Copyright © 2013 [Runtime Revolution](http://www.runtime-revolution.com), released under the MIT license.
+- This repository was forked from the original one : https://github.com/runtimerevolution/survey
