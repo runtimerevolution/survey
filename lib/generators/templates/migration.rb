@@ -7,7 +7,7 @@ class CreateSurvey < ActiveRecord::Migration
       t.text    :description
       t.integer :attempts_number, :default => 0
       t.boolean :finished, :default => false
-      t.boolean :active, :default => false
+      t.boolean :active, :default => true
 
       t.timestamps
     end

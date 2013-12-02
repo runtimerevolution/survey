@@ -8,16 +8,19 @@ class Survey::Attempt < ActiveRecord::Base
   belongs_to :survey
   belongs_to :participant, :polymorphic => true
 
+  #rails 3 attr_accessible support
+  if Rails::VERSION::MAJOR < 4
+    attr_accessible :participant_id, :survey_id, :answers_attributes, :survey, :winner, :participant
+  end
+  
   # validations
-
   validates :participant_id, :participant_type,
     :presence => true
-  attr_accessible :participant_id, :survey_id,
-    :answers_attributes, :survey, :winner, :participant
-
+    
   accepts_nested_attributes_for :answers,
     :reject_if =>
-      ->(q) { q[:question_id].blank? || q[:option_id].blank? }
+      ->(q) { q[:question_id].blank? || q[:option_id].blank? }, 
+      allow_destroy: true
 
   #scopes
 
@@ -40,7 +43,7 @@ class Survey::Attempt < ActiveRecord::Base
 
   # callbacks
 
-  validate :check_number_of_attempts_by_survey
+  validate :check_number_of_attempts_by_survey, :on => :create
   before_create :collect_scores
 
   def correct_answers

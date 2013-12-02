@@ -7,6 +7,8 @@ en:
   surveys: Surveys
   survey_details: Survey Details
   questions: Questions
+  sections: Sections
+  predefined_values: Predefined Values
   activerecord:
     models:
       survey:
@@ -15,16 +17,32 @@ en:
     attributes:
       survey:
         name: Name
+        locale_name: Localized name
         finished: Finished
         description: Short description
+        locale_description: Localized short description
         active: "Activated?"
         attempts_number: Number of Maximum Attempts
-        questions_attributes: Questions
+        sections_attributes: Sections
+      section:
+        head_number: Head Number
+        name: Name
+        description: Description
+        locale_head_number: Localized head number
+        locale_name: Localized name
+        locale_description: Localized Description
       question:
+        head_number: Head Number
         text: Question Text
+        description: Description
+        locale_head_number: Localized head number
+        locale_text: Localized Question Text
+        locale_description: Localized Description
         options_attributes: Options
+        predefined_values_attributes: Predefined Values
       options:
         text: Option Text
+        locale_text: Localized Option Text
         correct: Correct
       attempt:
         answers_attributes: Answers

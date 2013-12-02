@@ -1,16 +1,59 @@
-<h1>Survey <%= @survey.name %></h1>
+<h1><%= @survey.name %></h1>
+<p><%= @survey.description %></p>
 <%= form_for(@attempt, :url => attempt_scope(@attempt)) do |f| %>
   <%= f.fields_for :answers do |builder| %>
     <ul>
-      <% @survey.questions.each_with_index do |question, index| %>
-        <li>
-          <p><%= question.text %></p>
-          <%= hidden_field_tag "survey_attempt[answers_attributes][#{index}][question_id]", question.id %>
-          <% question.options.each do |option| %>
-            <%= check_box_tag "survey_attempt[answers_attributes][#{index}][option_id][]", option.id %>
-            <%= option.text %> <br/ >
-          <% end -%>
-        </li>
+      <% seq = 0 %>
+      <% @survey.sections.each do |section| %>
+        <p><span><%= "#{section.head_number} : " if section.head_number %></span><%= section.name%></p>
+        <p><%= section.description if section.description %></p>
+        <% section.questions.each do |question| %>
+          <% seq += 1 %>
+          <li>
+            <p><span><%= "#{question.head_number} : " if question.head_number %></span><%= question.text %></p>
+            <p><%= question.description if question.description %></p>
+            <% question.options.each do |option| %>
+            
+              <% if [Survey::OptionsType.multi_choices, Survey::OptionsType.multi_choices_with_text, Survey::OptionsType.multi_choices_with_number].include? option.options_type_id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= check_box_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                
+                <% if option.options_type_id == Survey::OptionsType.multi_choices_with_text %>
+                  <%= text_field_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% elsif option.options_type_id == Survey::OptionsType.multi_choices_with_number %>
+                  <%= number_field_tag "survey_attempt[answers_attributes][#{seq}][option_number]", "", class: "form-control" %>
+                <% end %>
+                <% seq += 1 %>
+              <% elsif [Survey::OptionsType.single_choice, Survey::OptionsType.single_choice_with_text].include? option.options_type_id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= radio_button_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                
+                <% if option.options_type_id == Survey::OptionsType.single_choice_with_text %>
+                  <%= text_field_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% elsif option.options_type_id == Survey::OptionsType.single_choice_with_number %>
+                  <%= number_field_tag "survey_attempt[answers_attributes][#{seq}][option_number]", "", class: "form-control" %>
+                <% end %>
+              <% elsif option.options_type_id == Survey::OptionsType.number %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                <%= number_field_tag "survey_attempt[answers_attributes][#{seq}][option_number]", "", :style => "width: 40px;" %>
+                <% seq += 1 %>
+              <% elsif option.options_type_id == Survey::OptionsType.text %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                <%= text_field_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% seq += 1 %>
+              <% elsif option.options_type_id == Survey::OptionsType.large_text %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][question_id]", question.id %>
+                <%= hidden_field_tag "survey_attempt[answers_attributes][#{seq}][option_id]", option.id %>
+                <%= text_area_tag "survey_attempt[answers_attributes][#{seq}][option_text]", "" %>
+                <% seq += 1 %>
+              <% end %>
+              
+              <%= option.text %> <br/>
+            <% end -%>
+          </li>
+        <% end -%>
       <% end -%>
     </ul>
   <% end -%>

@@ -1,9 +1,26 @@
 <li>
+  <h2>Option</h2>
+  <div class="field">
+    <%= f.label :head_number %> <br/ >
+    <%= f.text_field :head_number %>
+  </div>
   <div class="field">
     <%= f.label :text %> <br/ >
     <%= f.text_field :text %>
+  </div>
+  <div class="field">
+    <%= f.label :locale_text %> <br/ >
+    <%= f.text_field :locale_text %>
+  </div>
+  <div class="field">
+    <%= f.label :options_type_id %> <br />
+    <%= f.select :options_type_id, Survey::OptionsType.options_types_title %>
+  </div>
+  <div class="field">
     <%= f.check_box :correct %>
     <%= f.label :correct %>
+  </div>
+  <div class="field">
     <%= link_to_remove_field "Remove", f %>
   </div>
 </li>
