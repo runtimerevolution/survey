@@ -1,7 +1,7 @@
 # Questionaire
 
 [![Code Climate](https://codeclimate.com/github/dr-click/survey.png)](https://codeclimate.com/github/dr-click/questionaire)
-### questionaire on Rails...
+### Questionaire on Rails...
 
 Questionaire is a Rails Engine that brings multi types of quizzes, surveys and contests into your Rails
 application. Questionaire models were designed to be flexible enough in order to be extended and
@@ -26,6 +26,11 @@ http://rubydoc.info/github/dr-click/questionaire/master/frames
 ## Installation
 
 Add survey to your Gemfile:
+```ruby
+gem 'questionaire', '0.1', :require=>"survey"
+
+```
+or
 ```ruby
 gem 'questionaire', github: 'dr-click/questionaire', branch: 'master', :require=>"survey"
 
