@@ -25,9 +25,7 @@ class Survey::Answer < ActiveRecord::Base
   private
 
   def characterize_answer
-    if option.correct?
-      self.correct = true
-    end
+    self.correct = option.correct?
   end
 
 end

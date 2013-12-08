@@ -22,16 +22,16 @@ class Survey::Attempt < ActiveRecord::Base
   #scopes
 
   scope :for_survey, ->(survey) {
-  where(:survey_id => survey.try(:id))
+    where(:survey_id => survey.try(:id))
   }
 
   scope :exclude_survey, ->(survey) {
-  where("NOT survey_id = #{survey.try(:id)}")
+    where("NOT survey_id = #{survey.try(:id)}")
   }
 
   scope :for_participant, ->(participant) {
-  where(:participant_id => participant.try(:id),
-    :participant_type => participant.class)
+    where(:participant_id => participant.try(:id),
+      :participant_type => participant.class)
   }
 
   scope :wins, -> { where(:winner => true) }
@@ -66,6 +66,6 @@ class Survey::Attempt < ActiveRecord::Base
   end
 
   def collect_scores
-    self.score = self.answers.map(&:value).reduce(:+)
+    self.score = self.answers.map(&:value).reduce(:+) || 0
   end
 end
