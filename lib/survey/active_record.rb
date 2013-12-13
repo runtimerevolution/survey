@@ -18,7 +18,7 @@ module Survey
 
         in_rails_3 do
           if defined?(ProtectedAttributes)
-            attr_accessible(*self.const_get('AccessibleAttributes').map { |k| k.is_a?(Hash) ? k.keys.first : k }) rescue nil
+            attr_accessible(*self.const_get('AccessibleAttributes').map { |k| k.is_a?(Hash) ? k.keys.first : k })
           end
         end
 
