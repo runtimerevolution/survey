@@ -1,31 +1,34 @@
 class Survey::Answer < ActiveRecord::Base
 
   self.table_name = "survey_answers"
+
+  acceptable_attributes :attempt, :option, :correct, :option_id, :question, :question_id
+
+  # associations
   belongs_to :attempt
   belongs_to :option
   belongs_to :question
 
+  # validations
   validates :option_id, :question_id, :presence => true
-  attr_accessible :option, :attempt, :question, :question_id, :option_id
-  validates_uniqueness_of :question_id, :scope => [:attempt_id]
-  before_create :characterize_answer
+  validates :option_id, :uniqueness => { :scope => [:attempt_id, :question_id] }
+
+  # callbacks
+  after_create :characterize_answer
 
   def value
-    unless self.option == nil
-      self.option.weight
-    else
-      Survey::Option.find(option_id).weight
-    end
+    points = (self.option.nil? ? Survey::Option.find(option_id) : self.option).weight
+    correct?? points : - points
   end
 
   def correct?
-    self.correct or self.option.correct?
+    self.correct ||= self.option.correct?
   end
 
   private
 
   def characterize_answer
-    self.correct = option.correct?
+    update_attribute(:correct, option.correct?)
   end
 
 end

@@ -1,36 +1,34 @@
 class Survey::Option < ActiveRecord::Base
 
   self.table_name = "survey_options"
+
+  acceptable_attributes :text, :correct, :weight
+
   #relations
   belongs_to :question
 
-  # attributes permissions
-  attr_accessible :text, :correct,
-    :weight
-
   # validations
-  validates :text, :presence => true,
-    :allow_blank => false
+  validates :text, :presence => true, :allow_blank => false
 
-  scope :correct, -> {where(:correct => true) }
-  scope :incorrect, -> {where(:correct => false) }
+  # scopes
+  scope :correct,   -> { where(:correct => true)  }
+  scope :incorrect, -> { where(:correct => false) }
 
-  before_create :default_option_weigth
+  # callbacks
+  before_create :default_option_weight
 
   def to_s
-    self.text
+    return self.text
   end
 
   def correct?
-    self.correct == true
+    return (self.correct == true)
   end
 
   private
 
-  def default_option_weigth
-    if self.correct and self.weight == 0
-      self.weight =  1
-    end
+  def default_option_weight
+    self.weight = 1 if correct? && self.weight == 0
   end
 
 end

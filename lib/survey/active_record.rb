@@ -10,6 +10,17 @@ module Survey
           self.survey_tentatives.where(:survey_id => survey.id)
         end
       end
+
+
+      def acceptable_attributes(*args)
+
+        self.const_set('AccessibleAttributes', args + [:id, :_destroy])
+
+        in_rails_3 do
+          attr_accessible(*self.const_get('AccessibleAttributes').map { |k| k.is_a?(Hash) ? k.keys.first : k })
+        end
+
+      end
     end
   end
 end
