@@ -16,11 +16,11 @@ class AnswerTest < ActiveSupport::TestCase
     should_not_be_persisted answer
   end
 
-  test "should not create a answer already made to the same attempt" do
+  test "should not create a answer already made to the same attempt/option" do
     answer_try_1  = create_answer
     attempt  = answer_try_1.attempt
     question = answer_try_1.question
-    option   = (question.options - [answer_try_1.option]).first
+    option   = answer_try_1.option
     answer_try_2 = create_answer(:attempt => attempt, :question => question, :option => option)
 
     should_be_persisted answer_try_1
