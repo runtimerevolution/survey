@@ -28,6 +28,7 @@ module Survey
       template "attempts_plain.rb", "app/controllers/attempts_controller.rb"
       template "helper.rb", "app/helpers/surveys_helper.rb"
       directory "attempts_views", "app/views/attempts", :recursive => true
+      directory "locales", "config/locales", :recursive => true
       generate_routes_for(scope, true)
     end
 

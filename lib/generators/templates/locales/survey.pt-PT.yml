@@ -1,0 +1,48 @@
+pt-PT:
+  questions: Perguntas
+  survey_details: Detalhes do Questionário
+  surveys_controller:
+    create: O questionário foi criado com sucesso
+    update: O questionário foi atualizado com sucesso
+  attempts_controller:
+      create: "A sua resposta foi efetuada com sucesso."
+  surveys: Questionários
+  survey_details: Detalhes do Questionário
+  questions: Perguntas
+  activerecord:
+    models:
+      survey:
+        survey: Questionário
+        other: Questionários
+      question:
+        question: Pergunta
+        other: Perguntas
+      option:
+        option: Opção
+        other: Opções
+      attempt:
+        option: Resposta
+        other: Respostas
+    attributes:
+      survey:
+        name: Nome
+        finished: Acabado
+        description: Pequena Descrição
+        active: "Ativo?"
+        attempts_number: Número máximo de tentativas
+        questions_attributes: Perguntas
+      question:
+        text: Corpo da Pergunta
+        options_attributes: Opções
+      options:
+        text: Corpo da Opção
+        correct: Correta
+      attempt:
+        answers_attributes: Respostas
+        survey: Questionário
+        winner: Vencedor
+      answer:
+        attempt: Tentativa
+        question: Pergunta
+        option: Opção
+        correct: Resposta Correta?
