@@ -23,7 +23,12 @@ module Survey
     private
 
     def generate_active_admin_resolution
+      scope = get_scope
       copy_file "active_admin.rb", "app/admin/survey.rb"
+      template "attempts_plain.rb", "app/controllers/attempts_controller.rb"
+      template "helper.rb", "app/helpers/surveys_helper.rb"
+      directory "attempts_views", "app/views/attempts", :recursive => true
+      generate_routes_for(scope, true)
     end
 
     def generate_rails_admin_resolution

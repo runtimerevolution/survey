@@ -40,7 +40,7 @@ ActiveAdmin.register Survey::Survey do
         end
       end
     end
-    f.buttons
+    f.actions
   end
 
 end
