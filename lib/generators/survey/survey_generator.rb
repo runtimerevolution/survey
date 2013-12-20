@@ -27,7 +27,12 @@ module Survey
     end
 
     def generate_rails_admin_resolution
+      scope = get_scope
       copy_file "rails_admin.rb", "config/initializers/survey_rails_admin.rb"
+      template "attempts_plain.rb", "app/controllers/attempts_controller.rb"
+      template "helper.rb", "app/helpers/surveys_helper.rb"
+      directory "attempts_views", "app/views/attempts", :recursive => true
+      generate_routes_for(scope, true)
     end
 
     def generate_plain_resolution
@@ -60,17 +65,29 @@ module Survey
     def generate_routes_for(namespace, conditional=nil)
       content = <<-CONTENT
 
-  namespace :#{namespace} do
-    resources :surveys
+  #{namespace.nil? ? '' : ('namespace :' + namespace + ' do')}
+    #{conditional.nil? ? 'resources :surveys' : ''}
     resources :attempts, :only => [:new, :create]
-  end
+  #{namespace.nil? ? '' : 'end'}
 CONTENT
        inject_into_file "config/routes.rb", "\n#{content}",
             :after => "#{Rails.application.class.to_s}.routes.draw do"
     end
 
     def get_scope
-      arguments.size == 1 ? "admin" : arguments[1].split(":").last
+      if arguments.size == 1 && arguments.first == 'plain'
+        return "admin"
+      elsif arguments.size == 1
+        return nil
+      else
+        namespace = arguments[1].split(':')
+        if namespace[0] == 'namespace'
+          return namespace[1]
+        else
+          say("Wrong parameter name: use namespace:<name> instead.", :red)
+          fail
+        end
+      end
     end
 
   end
