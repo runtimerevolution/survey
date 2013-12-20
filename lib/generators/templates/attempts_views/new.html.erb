@@ -1,11 +1,11 @@
 <% if @survey.nil? %>
   <p>
-    <%= @participant.name %> there are not Active Surveys right now.
+    <%= @participant.email %> there are not Active Surveys right now.
   </p>
 <% elsif @survey.avaliable_for_participant?(@participant) %>
   <%= render 'form' %>
 <% else %>
   <p>
-    <%= @participant.name %> spent all the possible attempts to answer this Survey
+    <%= @participant.email %> spent all the possible attempts to answer this Survey
   </p>
 <% end -%>
