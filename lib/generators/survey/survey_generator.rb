@@ -37,11 +37,12 @@ module Survey
 
     def generate_plain_resolution
       scope = get_scope
-      template "survey_plain.rb", "app/controllers/#{scope}/surveys_controller.rb"
-      template "attempts_plain.rb", "app/controllers/#{scope}/attempts_controller.rb"
-      template "helper.rb", "app/helpers/#{scope}/surveys_helper.rb"
-      directory "survey_views", "app/views/#{scope}/surveys", :recursive => true
-      directory "attempts_views", "app/views/#{scope}/attempts", :recursive => true
+      prefix = scope ? "/#{scope}" : ""
+      template "survey_plain.rb", "app/controllers#{prefix}/surveys_controller.rb"
+      template "attempts_plain.rb", "app/controllers#{prefix}/attempts_controller.rb"
+      template "helper.rb", "app/helpers#{prefix}/surveys_helper.rb"
+      directory "survey_views", "app/views#{prefix}/surveys", :recursive => true
+      directory "attempts_views", "app/views#{prefix}/attempts", :recursive => true
       generate_routes_for(scope)
     end
 
@@ -63,31 +64,38 @@ module Survey
     end
 
     def generate_routes_for(namespace, conditional=nil)
-      content = <<-CONTENT
+      content_with_namespace = <<-CONTENT
 
-  #{namespace.nil? ? '' : ('namespace :' + namespace + ' do')}
-    #{conditional.nil? ? 'resources :surveys' : ''}
+  namespace :#{namespace} do
+    resources :surveys
     resources :attempts, :only => [:new, :create]
-  #{namespace.nil? ? '' : 'end'}
+  end
 CONTENT
-       inject_into_file "config/routes.rb", "\n#{content}",
-            :after => "#{Rails.application.class.to_s}.routes.draw do"
+
+      content_without_namespace = <<-CONTENT
+
+  resources :surveys
+  resources :attempts, :only => [:new, :create]
+CONTENT
+
+      inject_into_file "config/routes.rb", "\n#{namespace ? content_with_namespace : content_without_namespace}",
+        :after => "#{Rails.application.class.to_s}.routes.draw do"
     end
 
     def get_scope
-      if arguments.size == 1 && arguments.first == 'plain'
-        return "admin"
-      elsif arguments.size == 1
-        return nil
-      else
-        namespace = arguments[1].split(':')
-        if namespace[0] == 'namespace'
-          return namespace[1]
-        else
-          say("Wrong parameter name: use namespace:<name> instead.", :red)
-          fail
-        end
-      end
+      return nil if arguments.size == 1 && arguments.first == 'plain'
+      namespace = arguments[1].split(':')
+      return namespace.last if namespace.size == 2 && namespace.first == 'namespace' && !namespace.blank?
+      say("Wrong parameter name: use namespace:<name> instead.", :red)
+      fail
+    end
+
+    def scope_module
+      get_scope ? "#{get_scope.titleize}::" : ""
+    end
+
+    def scope_namespace
+      get_scope ? "#{get_scope}_" : ""
     end
 
   end
