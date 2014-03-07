@@ -34,11 +34,14 @@ class Survey::Survey < ActiveRecord::Base
     return self.questions.map(&:incorrect_options).flatten
   end
 
-  def avaliable_for_participant?(participant)
+  def available_for_participant?(participant)
     current_number_of_attempts = self.attempts.for_participant(participant).size
     upper_bound = self.attempts_number
     return !((current_number_of_attempts >= upper_bound) && (upper_bound != 0))
   end
+
+  # Preserve backwards compatibility with versions that mispelled 'available'
+  alias_method :avaliable_for_participant?, :available_for_participant?
 
   private
 
