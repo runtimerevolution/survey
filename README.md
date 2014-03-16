@@ -26,8 +26,7 @@ http://rubydoc.info/github/runtimerevolution/survey/frames
 
 Add survey to your Gemfile:
 ```ruby
-gem 'survey'
-
+gem "survey", "~> 0.1"
 ```
 Then run bundle to install the Gem:
 ```sh
