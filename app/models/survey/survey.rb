@@ -40,8 +40,10 @@ class Survey::Survey < ActiveRecord::Base
     return !((current_number_of_attempts >= upper_bound) && (upper_bound != 0))
   end
 
-  # Preserve backwards compatibility with versions that mispelled 'available'
-  alias_method :avaliable_for_participant?, :available_for_participant?
+  def avaliable_for_participant?(participant)
+    warn "[DEPRECATION] avaliable_for_participant? is deprecated. Please use available_for_participant? instead"
+    available_for_participant?(participant)
+  end
 
   private
 
