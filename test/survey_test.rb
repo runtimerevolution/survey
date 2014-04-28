@@ -16,7 +16,7 @@ class SurveyTest < ActiveSupport::TestCase
 
   test "should pass if all the users has the same score" do
     user_a = create_user
-    user_b = create_user
+    user_b = create_sti_user
     survey = create_survey_with_questions(4)
 
     create_attempt_for(user_a, survey, :all => :right)
