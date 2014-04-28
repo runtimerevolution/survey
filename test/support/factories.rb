@@ -85,3 +85,7 @@ end
 def create_user
   User.create(:name => Faker::Name.name)
 end
+
+def create_sti_user
+  StiUser.create(:name => Faker::Name.name)
+end
