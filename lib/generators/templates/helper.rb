@@ -1,7 +1,7 @@
 module <%= scope_module %>SurveysHelper
   def link_to_remove_field(name, f)
     f.hidden_field(:_destroy) +
-    link_to_function(raw(name), "removeField(this)", :id =>"remove-attach")
+    __link_to_function(raw(name), "removeField(this)", :id =>"remove-attach")
   end
 
   def new_survey
@@ -37,8 +37,14 @@ module <%= scope_module %>SurveysHelper
     fields = f.fields_for(association, new_object,:child_index => "new_#{association}") do |builder|
       render(association.to_s.singularize + "_fields", :f => builder)
     end
-    link_to_function(name, "addField(this, \"#{association}\", \"#{escape_javascript(fields)}\")",
+    __link_to_function(name, "addField(this, \"#{association}\", \"#{escape_javascript(fields)}\")",
     :id=>"add-attach",
     :class=>"btn btn-small btn-info")
+  end
+
+  private
+
+  def __link_to_function(name, on_click_event, opts={})
+    link_to(name, '#', opts.merge(onclick: on_click_event))
   end
 end
