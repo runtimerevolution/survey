@@ -26,8 +26,7 @@ http://rubydoc.info/github/runtimerevolution/survey/frames
 
 Add survey to your Gemfile:
 ```ruby
-gem 'survey', :git => 'git://github.com/runtimerevolution/survey.git'
-
+gem "survey", "~> 0.1"
 ```
 Then run bundle to install the Gem:
 ```sh
@@ -58,7 +57,7 @@ but if your surveys need to have a maximum number of attempts
 you can pass the attribute `attempts_number` when creating them.
 ```ruby
 # Each Participant can respond 4 times this survey
-Survey::Survey.new(:name => "Star Wars Quiz", :attempts_number => 4)
+Survey::Survey.new(:name => "Star Wars Quiz", :description => "A quiz about Star Wars", :attempts_number => 4)
 ```
 ## Surveys used in your controllers
 In this example we are using the current_user helper

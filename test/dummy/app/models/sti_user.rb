@@ -1,0 +1,3 @@
+class StiUser < User
+
+end
