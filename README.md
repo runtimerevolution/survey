@@ -14,6 +14,12 @@ You can view the Survey documentation in RDoc format here:
 
 http://rubydoc.info/github/runtimerevolution/survey/frames
 
+## Demo App
+
+We have implemented a demo app for you to try out: [Demo App](http://survey-demo.herokuapp.com/surveys)
+
+Here is the repository: https://github.com/runtimerevolution/survey-demo
+
 ## Main Features:
  - Surveys can limit the number of attempts for each participant
  - Questions can have multiple answers
