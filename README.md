@@ -32,7 +32,7 @@ Here is the repository: https://github.com/runtimerevolution/survey-demo
 
 Add survey to your Gemfile:
 ```ruby
-gem "survey", "~> 0.1"
+gem "survey"
 ```
 Then run bundle to install the Gem:
 ```sh
