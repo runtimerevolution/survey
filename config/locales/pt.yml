@@ -1,14 +1,12 @@
 pt:
   questions: Perguntas
   survey_details: Detalhes do Questionário
+  surveys: Questionários
   surveys_controller:
     create: O questionário foi criado com sucesso
     update: O questionário foi atualizado com sucesso
   attempts_controller:
-      create: "A sua resposta foi efetuada com sucesso."
-  surveys: Questionários
-  survey_details: Detalhes do Questionário
-  questions: Perguntas
+    create: "A sua resposta foi efetuada com sucesso."
   activerecord:
     models:
       survey:
@@ -45,4 +43,4 @@ pt:
         attempt: Tentativa
         question: Pergunta
         option: Opção
-        correct: Resposta Correta?
+        correct: Resposta correcta?
