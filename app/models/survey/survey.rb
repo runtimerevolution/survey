@@ -8,6 +8,8 @@ class Survey::Survey < ActiveRecord::Base
     :attempts_number,
     :questions_attributes => Survey::Question::AccessibleAttributes
 
+  enum survey_type: [:custom, :quiz, :poll, :score]
+
   # relations
   has_many :attempts,  :dependent => :destroy
   has_many :questions, :dependent => :destroy
