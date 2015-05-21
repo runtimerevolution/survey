@@ -195,5 +195,3 @@ Only support versions of Active Admin higher than 0.3.1.
 
 # License
 Copyright © 2013 [Runtime Revolution](http://www.runtime-revolution.com), released under the MIT license.
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/59be37fe81712a1a4dadc798325a30ee "githalytics.com")](http://githalytics.com/runtimerevolution/survey)
