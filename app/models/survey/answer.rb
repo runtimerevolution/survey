@@ -18,7 +18,6 @@ class Survey::Answer < ActiveRecord::Base
 
   def value
     points = (self.option.nil? ? Survey::Option.find(option_id) : self.option).weight
-    correct?? points : - points
   end
 
   def correct?

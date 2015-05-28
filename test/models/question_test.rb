@@ -3,20 +3,20 @@ require 'test_helper'
 class QuestionTest < ActiveSupport::TestCase
 
   test "should create a valid question" do
-    question = create_question
+    question = create_question_with_option
     should_be_persisted question
   end
 
   test "should not create a question with a empty or nil text fields" do
-    question1 = create_question({:text => nil})
-    question2 = create_question({:text => ""})
+    question1 = create_question_with_option({:text => nil})
+    question2 = create_question_with_option({:text => ""})
 
     should_not_be_persisted question1
     should_not_be_persisted question2
   end
 
   test "should return true when passed a correct answer to the question object" do
-    question = create_question
+    question = create_question_with_option
     question.options.create(correct_option_attributes)
     6.times { question.options.create(option_attributes) }
 
