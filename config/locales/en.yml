@@ -1,24 +1,33 @@
 en:
-  surveys_controller:
-    create: Your Survey has been successfull created
-    update: Your Survey has been successfull updated
-  attempts_controller:
-    create: "Congratulations, you have responded to Survey."
-  surveys: Surveys
-  survey_details: Survey Details
   questions: Questions
+  survey_details: Survey Details
+  surveys: Surveys
+  surveys_controller:
+    create: Your Survey has been successfully created
+    update: Your Survey has been successfully updated
+  attempts_controller:
+    create: "Thank you for answering the Survey!"
   activerecord:
     models:
       survey:
         survey: Survey
         other: Surveys
+      question:
+        question: Question
+        other: Questions
+      option:
+        option: Option
+        other: Options
+      attempt:
+        option: Answer
+        other: Answers
     attributes:
       survey:
         name: Name
         finished: Finished
         description: Short description
         active: "Activated?"
-        attempts_number: Number of Maximum Attempts
+        attempts_number: Maximum Attempts
         questions_attributes: Questions
       question:
         text: Question Text
@@ -29,8 +38,9 @@ en:
       attempt:
         answers_attributes: Answers
         survey: Survey
+        winner: Winner
       answer:
         attempt: Attempt
         question: Question
         option: Option
-        correct: Answer Correct?
+        correct: Correct answer?
