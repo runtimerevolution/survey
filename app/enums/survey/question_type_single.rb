@@ -1,0 +1,3 @@
+class Survey::QuestionTypeSingle
+
+end

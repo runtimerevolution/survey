@@ -1,0 +1,3 @@
+class Survey::SurveyTypeQuiz
+
+end

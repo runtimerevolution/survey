@@ -55,6 +55,6 @@ class Survey::Attempt < ActiveRecord::Base
   end
 
   def collect_scores
-    self.score = self.answers.map(&:value).reduce(:+) || 0
+    self.score = self.answers.map(&:weight).reduce(:+) || 0
   end
 end

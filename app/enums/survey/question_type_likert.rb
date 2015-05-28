@@ -1,0 +1,3 @@
+class Survey::QuestionTypeLikert
+
+end

@@ -4,26 +4,32 @@ class CreateSurvey < ActiveRecord::Migration
     # survey surveys logic
     create_table :survey_surveys do |t|
       t.string  :name
-      t.integer :survey_type
+      t.string  :survey_type, null: false
       t.text    :description
-      t.integer :attempts_number, :default => 0
-      t.boolean :finished, :default => false
-      t.boolean :active, :default => false
+      t.integer :attempts_number, default: 0
+      t.boolean :finished, default: false
+      t.boolean :active, default: false
+      t.boolean :private, default: false, null: false
 
       t.timestamps
     end
 
     create_table :survey_questions do |t|
+      t.string  :question_type, null: false
       t.integer :survey_id
       t.string  :text
+      t.integer :likert_min, default: 0
+      t.integer :likert_max, default: 0
+      t.string  :likert_min_text
+      t.string  :likert_max_text
 
       t.timestamps
     end
 
     create_table :survey_options do |t|
       t.integer :question_id
-      t.integer :weight, :default => 0
-      t.string :text
+      t.integer :weight, default: 0
+      t.string  :text
       t.boolean :correct
 
       t.timestamps
@@ -31,7 +37,7 @@ class CreateSurvey < ActiveRecord::Migration
 
     # survey answer logic
     create_table :survey_attempts do |t|
-      t.belongs_to :participant, :polymorphic => true
+      t.belongs_to :participant, polymorphic: true
       t.integer    :survey_id
       t.boolean    :winner
       t.integer    :score
@@ -41,6 +47,8 @@ class CreateSurvey < ActiveRecord::Migration
       t.integer    :attempt_id
       t.integer    :question_id
       t.integer    :option_id
+      t.integer    :value_i
+      t.string     :value_s
       t.boolean    :correct
       t.timestamps
     end

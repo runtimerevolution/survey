@@ -3,28 +3,41 @@ class Survey::Survey < ActiveRecord::Base
   self.table_name = "survey_surveys"
 
   acceptable_attributes :name, :description,
+    :survey_type,
     :finished,
     :active,
     :attempts_number,
-    :questions_attributes => Survey::Question::AccessibleAttributes
-
-  enum survey_type: [:custom, :quiz, :poll, :score]
+    :private,
+    questions_attributes: Survey::Question::AccessibleAttributes
 
   # relations
-  has_many :attempts,  :dependent => :destroy
-  has_many :questions, :dependent => :destroy
+  has_many :attempts,  dependent: :destroy
+  has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions,
-    :reject_if => ->(q) { q[:text].blank? },
-    :allow_destroy => true
+    reject_if: ->(q) { q[:text].blank? },
+    allow_destroy: true
 
   # scopes
-  scope :active,   -> { where(:active => true) }
-  scope :inactive, -> { where(:active => false) }
+  scope :active,   -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
 
   # validations
-  validates :attempts_number, :numericality => { :only_integer => true, :greater_than => -1 }
-  validates :description, :name, :presence => true, :allow_blank => false
+  validates :attempts_number, numericality: { only_integer: true, greater_than: -1 }
+  validates :description, :name, presence: true, allow_blank: false
   validate  :check_active_requirements
+
+  def self.survey_types
+    string_type_to_class_mapping.keys
+  end
+
+  def self.string_type_to_class_mapping
+    {
+      quiz:   Survey::SurveyTypeQuiz,
+      score:  Survey::SurveyTypeScore,
+      poll:   Survey::SurveyTypePoll,
+      simple: Survey::SurveyTypeSimple
+    }    
+  end
 
   # returns all the correct options for current surveys
   def correct_options
@@ -47,9 +60,13 @@ class Survey::Survey < ActiveRecord::Base
     available_for_participant?(participant)
   end
 
+  def survey_type_class
+    @survey_type_class ||= self.class.string_type_to_class_mapping[survey_type.to_sym].new
+  end
+
   private
 
-  # a surveys only can be activated if has one or more questions
+  # a survey can only be activated if has one or more questions
   def check_active_requirements
     errors.add(:active, "Survey without questions cannot be activated") if self.active && self.questions.empty?
   end
