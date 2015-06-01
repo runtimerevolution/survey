@@ -10,6 +10,7 @@ class CreateSurvey < ActiveRecord::Migration
       t.boolean :finished, default: false
       t.boolean :active, default: false
       t.boolean :private, default: false, null: false
+      t.integer :views_counter, default: 0, null: false
 
       t.timestamps
     end

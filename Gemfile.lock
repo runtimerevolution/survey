@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    survey (0.1)
+    survey (0.2)
       rails (>= 3.2.6, < 5)
       railties (>= 3.2.6, < 5)
 

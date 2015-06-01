@@ -1,3 +1,2 @@
 class Survey::SurveyTypeSimple
-  
 end

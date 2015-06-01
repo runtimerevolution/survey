@@ -13,16 +13,15 @@ class Survey::Question < ActiveRecord::Base
   # validations
   validates :text, presence: true, allow_blank: false
 
-  def self.question_types
-    string_type_to_class_mapping.keys
-  end
-
-  def self.string_type_to_class_mapping
+  STRING_TYPE_TO_CLASS_MAPPING =
     {
       single:   Survey::QuestionTypeSingle,
       multiple: Survey::QuestionTypeMultiple,
       likert:   Survey::QuestionTypeLikert
-    }    
+    }
+
+  def self.question_types
+    STRING_TYPE_TO_CLASS_MAPPING.keys
   end
 
   def correct_options
@@ -34,6 +33,6 @@ class Survey::Question < ActiveRecord::Base
   end
 
   def question_type_class
-    @question_type_class ||= self.class.string_type_to_class_mapping[question_type.to_sym].new
+    @question_type_class ||= self.class.STRING_TYPE_TO_CLASS_MAPPING.fetch(question_type.to_sym).new(self)
   end
 end

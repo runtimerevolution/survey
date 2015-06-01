@@ -5,7 +5,8 @@ def create_survey(opts = {})
   Survey::Survey.create({
     name: ::Faker::Name.name,
     attempts_number: 3,
-    description: ::Faker::Lorem.paragraph(1)
+    description: ::Faker::Lorem.paragraph(1),
+    survey_type: 'simple'
   }.merge(opts))
 end
 
@@ -52,12 +53,14 @@ def create_attempt(user: nil, survey: nil, chosen_options: [])
   end
 end
 
-def create_survey_with_questions(num_questions = 4, num_options = 4)
-  survey = create_survey
+def create_survey_with_questions(num_questions = 4, num_options = 4,
+                                 survey_attributes: {}, questions_attributes: {},
+                                 options_attributes: correct_option_attributes)
+  survey = create_survey(survey_attributes)
   num_questions.times do
-    question = create_question
+    question = create_question(questions_attributes)
     num_options.times do
-      question.options << create_option(correct_option_attributes)
+      question.options << create_option(option_attributes)
     end
     survey.questions << question
   end
@@ -65,27 +68,19 @@ def create_survey_with_questions(num_questions = 4, num_options = 4)
 end
 
 def create_survey_with_questions_and_scores(num_questions = 4, num_options = 4, weight: 10)
-  survey = create_survey
-  num_questions.times do
-    question = create_question
-    num_options.times do
-      question.options << create_option(weight: weight)
-    end
-    survey.questions << question
-  end
-  survey
+  create_survey_with_questions(options_attributes: { weight: weight })
 end
 
 # Creates a user attempt. If all correct is true the user will choose all the correct options.
 # If if it is false, the user will choose all the incorrect options.
-def create_attempt_for user, survey, all_correct: false
+def create_attempt_for(user, survey, all_correct: false)
   chosen_options = all_correct ? survey.correct_options : survey.incorrect_options
   create_attempt({  chosen_options: chosen_options,
                     user: user,
                     survey: survey})
 end
 
-def create_attempt_choosing_first_option user, survey
+def create_attempt_choosing_first_option(user, survey)
   chosen_options = survey.questions.map { |q| q.options.first }
   create_attempt({  chosen_options: chosen_options,
                     user: user,

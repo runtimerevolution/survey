@@ -8,14 +8,11 @@ class Survey::Option < ActiveRecord::Base
   belongs_to :question
 
   # validations
-  validates :text, :presence => true, :allow_blank => false
+  validates :text, presence: true, allow_blank: false
 
   # scopes
-  scope :correct,   -> { where(:correct => true)  }
-  scope :incorrect, -> { where(:correct => false) }
-
-  # callbacks
-  before_create :default_option_weight
+  scope :correct,   -> { where(correct: true)  }
+  scope :incorrect, -> { where(correct: false) }
 
   def to_s
     return self.text
@@ -24,11 +21,4 @@ class Survey::Option < ActiveRecord::Base
   def correct?
     return (self.correct == true)
   end
-
-  private
-
-  def default_option_weight
-    self.weight = 1 if correct? && self.weight == 0
-  end
-
 end

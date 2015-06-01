@@ -1,6 +1,6 @@
 class Survey::Survey < ActiveRecord::Base
 
-  self.table_name = "survey_surveys"
+  self.table_name = 'survey_surveys'
 
   acceptable_attributes :name, :description,
     :survey_type,
@@ -23,20 +23,20 @@ class Survey::Survey < ActiveRecord::Base
 
   # validations
   validates :attempts_number, numericality: { only_integer: true, greater_than: -1 }
-  validates :description, :name, presence: true, allow_blank: false
+  validates :description, :name, :survey_type, presence: true, allow_blank: false
   validate  :check_active_requirements
+  validate  :type_specific_validation
 
-  def self.survey_types
-    string_type_to_class_mapping.keys
-  end
-
-  def self.string_type_to_class_mapping
+  STRING_TYPE_TO_CLASS_MAPPING =
     {
       quiz:   Survey::SurveyTypeQuiz,
       score:  Survey::SurveyTypeScore,
       poll:   Survey::SurveyTypePoll,
       simple: Survey::SurveyTypeSimple
-    }    
+    }
+
+  def self.survey_types
+    STRING_TYPE_TO_CLASS_MAPPING.keys
   end
 
   # returns all the correct options for current surveys
@@ -56,18 +56,26 @@ class Survey::Survey < ActiveRecord::Base
   end
 
   def avaliable_for_participant?(participant)
-    warn "[DEPRECATION] avaliable_for_participant? is deprecated. Please use available_for_participant? instead"
+    warn '[DEPRECATION] avaliable_for_participant? is deprecated. Please use available_for_participant? instead'
     available_for_participant?(participant)
   end
 
   def survey_type_class
-    @survey_type_class ||= self.class.string_type_to_class_mapping[survey_type.to_sym].new
+    @survey_type_class ||= self.class::STRING_TYPE_TO_CLASS_MAPPING[survey_type.to_sym].new
+  end
+
+  def increment_views_counter!
+    update_attributes!(views_counter: views_counter + 1)
   end
 
   private
 
   # a survey can only be activated if has one or more questions
   def check_active_requirements
-    errors.add(:active, "Survey without questions cannot be activated") if self.active && self.questions.empty?
+    errors.add(:active, 'Survey without questions cannot be activated') if self.active && self.questions.empty?
+  end
+
+  def type_specific_validation
+    survey_type_class.type_specific_validation(self) if survey_type_class.respond_to?(:type_specific_validation)
   end
 end
