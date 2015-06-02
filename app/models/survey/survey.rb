@@ -25,7 +25,7 @@ class Survey::Survey < ActiveRecord::Base
   validates :attempts_number, numericality: { only_integer: true, greater_than: -1 }
   validates :description, :name, :survey_type, presence: true, allow_blank: false
   validate  :check_active_requirements
-  validate  :type_specific_validation
+  validate  :survey_type_specific_validation
 
   STRING_TYPE_TO_CLASS_MAPPING =
     {
@@ -75,7 +75,7 @@ class Survey::Survey < ActiveRecord::Base
     errors.add(:active, 'Survey without questions cannot be activated') if self.active && self.questions.empty?
   end
 
-  def type_specific_validation
-    survey_type_class.type_specific_validation if survey_type_class.respond_to?(:type_specific_validation)
+  def survey_type_specific_validation
+    survey_type_class.survey_type_specific_validation if survey_type_class.respond_to?(:survey_type_specific_validation)
   end
 end

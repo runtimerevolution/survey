@@ -5,6 +5,7 @@ pt-PT:
   surveys_controller:
     create: O questionário foi criado com sucesso
     update: O questionário foi atualizado com sucesso
+    destroy: O questionário foi apagado
   attempts_controller:
     create: "A sua resposta foi efetuada com sucesso."
   activerecord:

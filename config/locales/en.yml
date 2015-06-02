@@ -5,6 +5,7 @@ en:
   surveys_controller:
     create: Your Survey has been successfully created
     update: Your Survey has been successfully updated
+    destroy: The survey was deleted
   attempts_controller:
     create: "Thank you for answering the Survey!"
   activerecord:

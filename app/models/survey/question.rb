@@ -13,7 +13,7 @@ class Survey::Question < ActiveRecord::Base
   # validations
   validates :text, presence: true, allow_blank: false
   validates :options, presence: true
-  validate  :type_specific_validation
+  validate  :question_type_specific_validation
 
   STRING_TYPE_TO_CLASS_MAPPING =
     {
@@ -38,7 +38,7 @@ class Survey::Question < ActiveRecord::Base
     @question_type_class ||= self.class::STRING_TYPE_TO_CLASS_MAPPING.fetch(question_type.to_sym).new(self)
   end
 
-  def type_specific_validation
-    question_type_class.type_specific_validation if question_type_class.respond_to?(:type_specific_validation)
+  def question_type_specific_validation
+    question_type_class.question_type_specific_validation if question_type_class.respond_to?(:question_type_specific_validation)
   end
 end
