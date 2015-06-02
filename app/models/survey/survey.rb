@@ -61,7 +61,7 @@ class Survey::Survey < ActiveRecord::Base
   end
 
   def survey_type_class
-    @survey_type_class ||= self.class::STRING_TYPE_TO_CLASS_MAPPING[survey_type.to_sym].new
+    @survey_type_class ||= self.class::STRING_TYPE_TO_CLASS_MAPPING.fetch(survey_type.to_sym).new(self)
   end
 
   def increment_views_counter!
@@ -76,6 +76,6 @@ class Survey::Survey < ActiveRecord::Base
   end
 
   def type_specific_validation
-    survey_type_class.type_specific_validation(self) if survey_type_class.respond_to?(:type_specific_validation)
+    survey_type_class.type_specific_validation if survey_type_class.respond_to?(:type_specific_validation)
   end
 end

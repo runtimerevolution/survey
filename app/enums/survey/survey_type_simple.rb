@@ -1,2 +1,2 @@
-class Survey::SurveyTypeSimple
+class Survey::SurveyTypeSimple < Survey::SurveyType
 end

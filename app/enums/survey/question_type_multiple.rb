@@ -1,3 +1,3 @@
-class Survey::QuestionTypeMultiple
+class Survey::QuestionTypeMultiple < Survey::QuestionType
 
 end
