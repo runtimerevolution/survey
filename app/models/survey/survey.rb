@@ -3,7 +3,6 @@ class Survey::Survey < ActiveRecord::Base
   self.table_name = 'survey_surveys'
 
   acceptable_attributes :name, :description,
-    :survey_type,
     :finished,
     :active,
     :attempts_number,
@@ -23,21 +22,8 @@ class Survey::Survey < ActiveRecord::Base
 
   # validations
   validates :attempts_number, numericality: { only_integer: true, greater_than: -1 }
-  validates :description, :name, :survey_type, presence: true, allow_blank: false
+  validates :description, :name, presence: true, allow_blank: false
   validate  :check_active_requirements
-  validate  :survey_type_specific_validation
-
-  STRING_TYPE_TO_CLASS_MAPPING =
-    {
-      quiz:   Survey::SurveyTypeQuiz,
-      score:  Survey::SurveyTypeScore,
-      poll:   Survey::SurveyTypePoll,
-      simple: Survey::SurveyTypeSimple
-    }
-
-  def self.survey_types
-    STRING_TYPE_TO_CLASS_MAPPING.keys
-  end
 
   # returns all the correct options for current surveys
   def correct_options
@@ -60,10 +46,6 @@ class Survey::Survey < ActiveRecord::Base
     available_for_participant?(participant)
   end
 
-  def survey_type_class
-    @survey_type_class ||= self.class::STRING_TYPE_TO_CLASS_MAPPING.fetch(survey_type.to_sym).new(self)
-  end
-
   def increment_views_counter!
     update_attributes!(views_counter: views_counter + 1)
   end
@@ -73,9 +55,5 @@ class Survey::Survey < ActiveRecord::Base
   # a survey can only be activated if has one or more questions
   def check_active_requirements
     errors.add(:active, 'Survey without questions cannot be activated') if self.active && self.questions.empty?
-  end
-
-  def survey_type_specific_validation
-    survey_type_class.survey_type_specific_validation if survey_type_class.respond_to?(:survey_type_specific_validation)
   end
 end

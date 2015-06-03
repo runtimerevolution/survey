@@ -6,7 +6,6 @@ def create_survey(opts = {})
     name: ::Faker::Name.name,
     attempts_number: 3,
     description: ::Faker::Lorem.paragraph(1),
-    survey_type: 'simple'
   }.merge(opts))
 end
 
