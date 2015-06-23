@@ -22,7 +22,7 @@ class Survey::Survey < ActiveRecord::Base
 
   # validations
   validates :attempts_number, numericality: { only_integer: true, greater_than: -1 }
-  validates :description, :name, presence: true, allow_blank: false
+  validates :name, presence: true, allow_blank: false
   validate  :check_active_requirements
 
   # returns all the correct options for current surveys

@@ -18,10 +18,7 @@ class CreateSurvey < ActiveRecord::Migration
       t.string  :question_type, null: false
       t.integer :survey_id
       t.string  :text
-      t.integer :likert_min, default: 0
-      t.integer :likert_max, default: 0
-      t.string  :likert_min_text
-      t.string  :likert_max_text
+      t.json    :likert_options
 
       t.timestamps
     end

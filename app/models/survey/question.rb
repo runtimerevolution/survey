@@ -2,7 +2,7 @@ class Survey::Question < ActiveRecord::Base
 
   self.table_name = 'survey_questions'
 
-  acceptable_attributes :text, :question_type, :survey, :likert_min, :likert_max, :likert_min_text, :likert_max_text, options_attributes: Survey::Option::AccessibleAttributes
+  acceptable_attributes :text, :question_type, :survey, :likert_options, options_attributes: Survey::Option::AccessibleAttributes
 
   belongs_to :survey
   has_many   :options, dependent: :destroy
@@ -27,11 +27,23 @@ class Survey::Question < ActiveRecord::Base
   end
 
   def correct_options
-    return options.correct
+    options.correct
   end
 
   def incorrect_options
-    return options.incorrect
+    options.incorrect
+  end
+
+  def likert_max
+    likert_options_symbols.map { |option| option[:position] }.max
+  end
+
+  def likert_min
+    likert_options_symbols.map { |option| option[:position] }.min
+  end
+
+  def likert_options_symbols
+    likert_options.map { |option| HashWithIndifferentAccess.new(option) }
   end
 
   def question_type_class
