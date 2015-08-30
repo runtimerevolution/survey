@@ -83,7 +83,7 @@ CONTENT
     end
 
     def get_scope
-      return nil if arguments.size == 1 && arguments.first == 'plain'
+      return nil if arguments.size == 1
       namespace = arguments[1].split(':')
       return namespace.last if namespace.size == 2 && namespace.first == 'namespace' && !namespace.blank?
       say("Wrong parameter name: use namespace:<name> instead.", :red)
