@@ -1,7 +1,7 @@
 en:
   surveys_controller:
-    create: Your Survey has been successfull created
-    update: Your Survey has been successfull updated
+    create: Your Survey has been successfully created
+    update: Your Survey has been successfully updated
   attempts_controller:
     create: "Congratulations, you have responded to Survey."
   surveys: Surveys
