@@ -2,7 +2,7 @@
   <p>
     <%= @participant.email %> there are not Active Surveys right now.
   </p>
-<% elsif @survey.avaliable_for_participant?(@participant) %>
+<% elsif @survey.available_for_participant?(@participant) %>
   <%= render 'form' %>
 <% else %>
   <p>
