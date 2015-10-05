@@ -106,11 +106,14 @@ end
 
 ## Survey inside your Views
 
-### Controlling Survey avaliability per participant
-To control which page participants see you can use method `avaliable_for_participant?`
+### Controlling Survey availability per participant
+NOTE: avaliable_for_participant? method has been deprecated. Please use
+available_for_participant? method instead.
+
+To control which page participants see you can use method `available_for_participant?`
 that checks if the participant already spent his attempts.
 ```erb
-<% if @survey.avaliable_for_participant?(@participant) %>
+<% if @survey.available_for_participant?(@participant) %>
   <%= render 'form' %>
 <% else %>
   Uupss, <%= @participant.name %> you have reach the maximum number of
