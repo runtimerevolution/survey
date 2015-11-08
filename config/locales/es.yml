@@ -1,0 +1,36 @@
+es:
+  surveys_controller:
+    create: Su instrumento ha sido exitosamente creado
+    update: Su instrumento ha sido exitosamente creado
+  attempts_controller:
+    create: "Felicidades, has respondido el instrumento"
+  surveys: Instrumentos
+  survey_details: Detalles del instrumento
+  questions: Preguntas
+  activerecord:
+    models:
+      survey:
+        survey: Instrumento
+        other: Instrumentos
+    attributes:
+      survey:
+        name: nombre
+        finished: Terminado
+        description: Descripción corta
+        active: "¿Activado?"
+        attempts_number: Numero máximo de intentos
+        questions_attributes: Preguntas
+      question:
+        text: Texto de la pregunta
+        options_attributes: Opciones
+      options:
+        text: Texto de la opción
+        correct: Correcta
+      attempt:
+        answers_attributes: Respuestas
+        survey: Instrumento
+      answer:
+        attempt: Intento
+        question: Pregunta
+        option: Opción
+        correct: ¿Respuesta correcta?
