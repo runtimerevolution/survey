@@ -162,7 +162,7 @@ rails generate survey routes namespace:admin
 ```
 
 ## How to use it
-Every user has a collection of attempts for each survey that he respond to. Is up to you to
+Every user has a collection of attempts for each survey that they can respond to. Is up to you to
 make averages and collect reports based on that information.
 What makes Survey useful is that all the logic behind surveys is now abstracted and well integrated,
 making your job easier.
