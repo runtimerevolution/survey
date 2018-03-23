@@ -25,7 +25,7 @@ class Survey::Attempt < ActiveRecord::Base
   scope :for_survey, ->(survey) { where(:survey_id => survey.id) }
   scope :exclude_survey,  ->(survey) { where("NOT survey_id = #{survey.id}") }
   scope :for_participant, ->(participant) {
-    where(:participant_id => participant.try(:id), :participant_type => participant.class.base_class)
+    where(:participant_id => participant.try(:id), :participant_type => participant.class.base_class.to_s)
   }
 
   # callbacks
