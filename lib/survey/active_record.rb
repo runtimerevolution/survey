@@ -4,7 +4,9 @@ module Survey
 
     module ClassMethods
       def has_surveys
-        has_many :survey_tentatives, as: :participant, :class_name => ::Survey::Attempt
+        has_many :survey_tentatives,
+                 as: :participant,
+                 :class_name => ::Survey::Attempt.name
 
         define_method("for_survey") do |survey|
           self.survey_tentatives.where(:survey_id => survey.id)
