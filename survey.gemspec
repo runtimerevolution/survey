@@ -11,9 +11,9 @@ Gem::Specification.new do |s|
   s.authors     = %Q{Runtime Revolution}
   s.require_paths = %w(lib)
 
-  s.add_dependency("rails", [">= 3.2.6", "< 5"])
-  s.add_dependency("railties", ">= 3.2.6", "< 5")
+  s.add_dependency("rails", ["~> 5.0.7"])
+  s.add_dependency("railties", "~> 5.0.7")
   s.add_development_dependency("mocha")
-  s.add_development_dependency("faker")
+  s.add_development_dependency("faker", ['~> 1.8', '>= 1.8.7'])
   s.add_development_dependency("rake")
 end
