@@ -44,11 +44,10 @@ class <%= scope_module %>SurveysController < ApplicationController
   end
 
   def survey_params
-    rails4? ? params_whitelist : params[:survey_survey]
+    params_whitelist
   end
 
   def params_whitelist
     params.require(:survey_survey).permit(Survey::Survey::AccessibleAttributes)
   end
-
 end
