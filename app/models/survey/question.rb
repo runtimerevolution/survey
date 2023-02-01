@@ -1,24 +1,30 @@
-class Survey::Question < ActiveRecord::Base
+# frozen_string_literal: true
 
-  self.table_name = "survey_questions"
+require 'survey/option'
 
-  acceptable_attributes :text, :survey, :options_attributes => Survey::Option::AccessibleAttributes
+module Survey
+  # Class Question
+  class Question < ::ActiveRecord::Base
+    self.table_name = 'survey_questions'
 
-  # relations
-  belongs_to :survey
-  has_many   :options, :dependent => :destroy
-  accepts_nested_attributes_for :options,
-    :reject_if => ->(a) { a[:text].blank? },
-    :allow_destroy => true
+    acceptable_attributes :text, :survey, options_attributes: ::Survey::Option::AccessibleAttributes
 
-  # validations
-  validates :text, :presence => true, :allow_blank => false
+    # relations
+    belongs_to :survey
+    has_many   :options, dependent: :destroy
+    accepts_nested_attributes_for :options,
+                                  reject_if: ->(a) { a[:text].blank? },
+                                  allow_destroy: true
 
-  def correct_options
-    return options.correct
-  end
+    # validations
+    validates :text, presence: true, allow_blank: false
 
-  def incorrect_options
-    return options.incorrect
+    def correct_options
+      options.correct
+    end
+
+    def incorrect_options
+      options.incorrect
+    end
   end
 end

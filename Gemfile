@@ -1,8 +1,8 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gemspec
 
-gem "rdoc"
+gem 'rdoc'
 
 group :test do
   gem 'sqlite3'

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# Module SurveysController
 class <%= scope_module %>SurveysController < ApplicationController
 
-  before_filter :load_survey, :only => [:show, :edit, :update]
+  before_action :load_survey, only: %i[show edit update]
 
   def index
     @surveys = Survey::Survey.all
@@ -15,21 +18,19 @@ class <%= scope_module %>SurveysController < ApplicationController
     if @survey.valid? && @survey.save
       default_redirect
     else
-      render :action => :new
+      render action: :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
-  def show
-  end
+  def show; end
 
   def update
-    if @survey.update_attributes(survey_params)
+    if @survey.update(survey_params)
       default_redirect
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
@@ -50,5 +51,4 @@ class <%= scope_module %>SurveysController < ApplicationController
   def params_whitelist
     params.require(:survey_survey).permit(Survey::Survey::AccessibleAttributes)
   end
-
 end

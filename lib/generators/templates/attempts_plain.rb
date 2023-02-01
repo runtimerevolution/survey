@@ -1,17 +1,20 @@
+# frozen_string_literal: true
+
+# Module AttemptsController
 class <%= scope_module %>AttemptsController < ApplicationController
 
   helper '<%= get_scope ? "#{get_scope}/" : ''%>surveys'
 
-  before_filter :load_active_survey
-  before_filter :normalize_attempts_data, :only => :create
+  before_action :load_active_survey
+  before_action :normalize_attempts_data, only: :create
 
   def new
     @participant = current_user # you have to decide what to do here
 
-    unless @survey.nil?
-      @attempt = @survey.attempts.new
-      @attempt.answers.build
-    end
+    return if @survey.nil?
+    
+    @attempt = @survey.attempts.new
+    @attempt.answers.build
   end
 
   def create
@@ -21,14 +24,14 @@ class <%= scope_module %>AttemptsController < ApplicationController
     if @attempt.valid? && @attempt.save
       redirect_to view_context.new_attempt, alert: I18n.t("attempts_controller.#{action_name}")
     else
-      render :action => :new
+      render action: :new
     end
   end
 
   private
 
   def load_active_survey
-    @survey =  Survey::Survey.active.first
+    @survey =  Survey.active.first
   end
 
   def normalize_attempts_data
@@ -53,7 +56,7 @@ class <%= scope_module %>AttemptsController < ApplicationController
     multiple_answers.each do |k|
       hash[k]['option_id'][1..-1].each do |o|
         last_key += 1
-        hash[last_key.to_s] = hash[k].merge('option_id' => o)
+        hash[last_key.to_s] = hash[k].merge('option_id': o)
       end
       hash[k]['option_id'] = hash[k]['option_id'].first
     end
@@ -64,6 +67,6 @@ class <%= scope_module %>AttemptsController < ApplicationController
   end
 
   def params_whitelist
-    params.require(:survey_attempt).permit(Survey::Attempt::AccessibleAttributes)
+    params.require(:survey_attempt).permit(Attempt::AccessibleAttributes)
   end
 end
