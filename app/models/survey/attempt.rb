@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'survey/answer'
-
 module Survey
   # class Attempt
   class Attempt < ::ActiveRecord::Base

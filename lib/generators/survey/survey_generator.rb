@@ -17,11 +17,6 @@ module Survey
       if TEMPLATES.include? strategy
         send("generate_#{strategy}_resolution")
         success_message(strategy)
-      elsif strategy == 'all'
-        TEMPLATES.each do |str|
-          send("generate_#{str}_resolution")
-        end
-        success_message(strategy)
       else
         error_message(strategy)
       end
@@ -36,8 +31,8 @@ module Survey
     def generate_rails_admin_resolution
       scope = get_scope
       copy_file 'rails_admin.rb', 'config/initializers/survey_rails_admin.rb', force: true
-      template 'attempts_plain.rb', 'app/controllers/attempts_controller.rb', force: true
-      template 'helper.rb', 'app/helpers/surveys_helper.rb', force: true
+      template 'attempts_plain.erb', 'app/controllers/attempts_controller.rb', force: true
+      template 'helper.erb', 'app/helpers/surveys_helper.rb', force: true
       directory 'attempts_views', 'app/views/attempts', recursive: true
       generate_routes_for(scope, true)
     end
@@ -45,9 +40,9 @@ module Survey
     def generate_plain_resolution
       scope = get_scope
       prefix = scope ? "/#{scope}" : ''
-      template 'survey_plain.rb', "app/controllers#{prefix}/surveys_controller.rb", force: true
-      template 'attempts_plain.rb', "app/controllers#{prefix}/attempts_controller.rb", force: true
-      template 'helper.rb', "app/helpers#{prefix}/surveys_helper.rb", force: true
+      template 'survey_plain.erb', "app/controllers#{prefix}/surveys_controller.rb", force: true
+      template 'attempts_plain.erb', "app/controllers#{prefix}/attempts_controller.rb", force: true
+      template 'helper.erb', "app/helpers#{prefix}/surveys_helper.rb", force: true
       directory 'survey_views', "app/views#{prefix}/surveys", recursive: true
       directory 'attempts_views', "app/views#{prefix}/attempts", recursive: true
       generate_routes_for(scope)

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'survey/question'
-
 module Survey
   # module Survey
   class Survey < ::ActiveRecord::Base

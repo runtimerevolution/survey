@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'survey/option'
-
 module Survey
   # Class Question
   class Question < ::ActiveRecord::Base
