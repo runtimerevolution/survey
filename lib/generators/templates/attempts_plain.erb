@@ -2,7 +2,6 @@
 
 # Module AttemptsController
 class <%= scope_module %>AttemptsController < ApplicationController
-
   helper '<%= get_scope ? "#{get_scope}/" : ''%>surveys'
 
   before_action :load_active_survey
@@ -12,7 +11,7 @@ class <%= scope_module %>AttemptsController < ApplicationController
     @participant = current_user # you have to decide what to do here
 
     return if @survey.nil?
-    
+
     @attempt = @survey.attempts.new
     @attempt.answers.build
   end

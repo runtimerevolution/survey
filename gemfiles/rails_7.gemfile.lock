@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: ..
   specs:
     survey (0.1)
       rails (>= 3.2.6)
@@ -114,7 +114,6 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
     minitest (5.17.0)
     mocha (2.0.2)
       ruby2_keywords (>= 0.0.5)
@@ -128,8 +127,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.14.1)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.14.1-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.2.0.0)
@@ -203,8 +201,7 @@ GEM
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sqlite3 (1.6.0)
-      mini_portile2 (~> 2.8.0)
+    sqlite3 (1.6.0-x86_64-darwin)
     stringio (3.0.5)
     thor (1.2.1)
     timeout (0.3.1)
@@ -217,7 +214,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
-  ruby
+  x86_64-darwin-21
 
 DEPENDENCIES
   appraisal
@@ -226,6 +223,8 @@ DEPENDENCIES
   factory_bot_rails
   faker
   mocha
+  rails (>= 7)
+  railties (>= 7)
   rake
   rdoc
   rspec-rails

@@ -29,9 +29,8 @@ module Survey
 
     private
 
-    def default_option_weight
-      weight = 1 if weight && correct? && weight.zero?
-      weight
+    def default_option_weight(current = self)
+      current.weight = 1 if correct? && current.weight.zero?
     end
   end
 end

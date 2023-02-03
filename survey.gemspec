@@ -16,9 +16,15 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0' # rubocop:disable Gemspec/RequiredRubyVersion
 
   # dependencies
-  s.add_dependency('rails', '>= 3.2.6')
-  s.add_dependency('railties', '>= 3.2.6')
-  s.add_development_dependency('faker')
-  s.add_development_dependency('mocha')
-  s.add_development_dependency('rake')
+  s.add_dependency 'rails', '>= 3.2.6'
+  s.add_dependency 'railties', '>= 3.2.6'
+  s.add_development_dependency 'appraisal'
+  s.add_development_dependency 'byebug'
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'factory_bot_rails'
+  s.add_development_dependency 'faker'
+  s.add_development_dependency 'mocha'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rubocop'
 end
