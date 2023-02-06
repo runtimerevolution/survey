@@ -184,7 +184,7 @@ global_highest_score = survey_answers.high_score
 ```
 # Compability
 ### Rails
-Survey supports Rails 3 and 4. For use in Rails 4. Rails 4 support is recent, so some minor issues may still be present,
+Survey supports Rails 6 and 7. Rails 6/7 support is recent, so some minor issues may still be present,
 please report them.
 
 ### Active Admin
