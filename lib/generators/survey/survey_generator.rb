@@ -25,14 +25,14 @@ module Survey
     private
 
     def generate_active_admin_resolution
-      copy_file 'active_admin.rb', 'app/admin/survey.rb', force: true
+      copy_file 'active_admin.rb', 'app/admin/survey.rb'
     end
 
     def generate_rails_admin_resolution
       scope = get_scope
-      copy_file 'rails_admin.rb', 'config/initializers/survey_rails_admin.rb', force: true
-      template 'attempts_plain.erb', 'app/controllers/attempts_controller.rb', force: true
-      template 'helper.erb', 'app/helpers/surveys_helper.rb', force: true
+      copy_file 'rails_admin.rb', 'config/initializers/survey_rails_admin.rb'
+      template 'attempts_plain.erb', 'app/controllers/attempts_controller.rb'
+      template 'helper.erb', 'app/helpers/surveys_helper.rb'
       directory 'attempts_views', 'app/views/attempts', recursive: true
       generate_routes_for(scope, true)
     end
@@ -40,9 +40,9 @@ module Survey
     def generate_plain_resolution
       scope = get_scope
       prefix = scope ? "/#{scope}" : ''
-      template 'survey_plain.erb', "app/controllers#{prefix}/surveys_controller.rb", force: true
-      template 'attempts_plain.erb', "app/controllers#{prefix}/attempts_controller.rb", force: true
-      template 'helper.erb', "app/helpers#{prefix}/surveys_helper.rb", force: true
+      template 'survey_plain.erb', "app/controllers#{prefix}/surveys_controller.rb"
+      template 'attempts_plain.erb', "app/controllers#{prefix}/attempts_controller.rb"
+      template 'helper.erb', "app/helpers#{prefix}/surveys_helper.rb"
       directory 'survey_views', "app/views#{prefix}/surveys", recursive: true
       directory 'attempts_views', "app/views#{prefix}/attempts", recursive: true
       generate_routes_for(scope)

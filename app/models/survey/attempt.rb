@@ -28,7 +28,7 @@ module Survey
     scope :looses, -> { where(winner: false) }
     scope :scores, -> { order('score DESC') }
     scope :for_survey, ->(survey) { where(survey_id: survey.id) }
-    scope :exclude_survey,  ->(survey) { where("NOT survey_id = #{survey.id}") }
+    scope :exclude_survey,  ->(survey) { where.not(survey_id: survey.id) }
     scope :for_participant, ->(participant) { # rubocop:disable Style/Lambda
       where(participant_id: participant.try(:id), participant_type: participant.class.base_class.name)
     }
@@ -60,7 +60,7 @@ module Survey
     end
 
     def collect_scores
-      answers.map(&:value).reduce(:+) || 0
+      self.score = answers.map(&:value).reduce(:+) || 0
     end
   end
 end

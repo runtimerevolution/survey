@@ -10,7 +10,7 @@ module Survey
         return if survey_migration_already_exists?
 
         timestamp_number = Time.now.utc.strftime('%Y%m%d%H%M%S').to_i
-        copy_file 'migration.rb', "db/migrate/#{timestamp_number}_create_survey.rb", force: true
+        copy_file 'migration.rb', "db/migrate/#{timestamp_number}_create_survey.rb"
       end
 
       private

@@ -17,12 +17,6 @@ module Survey
 
       def acceptable_attributes(*args)
         const_set('AccessibleAttributes', args + %i[id _destroy])
-
-        # in_rails_3 do
-        #   if defined?(self.respond_to?(:attr_accessible))
-        #     attr_accessible(*self.const_get('AccessibleAttributes').map { |k| k.is_a?(Hash) ? k.keys.first : k })
-        #   end
-        # end
       end
     end
   end
