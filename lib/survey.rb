@@ -1,10 +1,9 @@
+# frozen_string_literal: true
+
+# module ::Kernel
 module ::Kernel
   def rails4?
-    return defined?(Rails) && Rails::VERSION::MAJOR == 4
-  end
-
-  def in_rails_3(&block)
-    yield if block_given? unless rails4?
+    defined?(Rails) && Rails::VERSION::MAJOR == 4
   end
 end
 
@@ -12,4 +11,8 @@ require 'survey/engine'
 require 'survey/version'
 require 'survey/active_record'
 
-ActiveRecord::Base.send(:include, Survey::ActiveRecord)
+if defined?(ApplicationRecord)
+  ApplicationRecord.include Survey::ActiveRecord
+elsif defined?(ActiveRecord::Base)
+  ActiveRecord::Base.include Survey::ActiveRecord
+end

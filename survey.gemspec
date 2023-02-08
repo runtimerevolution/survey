@@ -1,19 +1,30 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "survey/version"
+# frozen_string_literal: true
+
+$LOAD_PATH.push File.expand_path('lib', __dir__)
+
+require 'survey/version'
 
 Gem::Specification.new do |s|
-  s.name        = "survey"
+  s.name        = 'survey'
   s.version     = Survey::VERSION
-  s.summary     = %Q{Survey is a user oriented tool that brings surveys into Rails applications.}
-  s.description = %Q{A rails gem to enable surveys in your application as easy as possible}
-  s.files       = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.md"]
-  s.authors     = %Q{Runtime Revolution}
-  s.require_paths = %w(lib)
+  s.description = 'A rails gem to enable surveys in your application as easy as possible'
+  s.summary     = 'Survey is a user oriented tool that brings surveys into Rails applications.'
+  s.authors     = ['Runtime Revolution']
+  s.files       = Dir['{app,lib,config}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'Gemfile', 'README.md']
+  s.require_paths = %w[lib]
+  s.test_files = Dir.glob('spec/**/*')
+  s.required_ruby_version = '>= 2.0' # rubocop:disable Gemspec/RequiredRubyVersion
 
-  s.add_dependency("rails", [">= 3.2.6", "< 5"])
-  s.add_dependency("railties", ">= 3.2.6", "< 5")
-  s.add_development_dependency("mocha")
-  s.add_development_dependency("faker")
-  s.add_development_dependency("rake")
+  # dependencies
+  s.add_dependency 'rails', '>= 3.2.6'
+  s.add_dependency 'railties', '>= 3.2.6'
+  s.add_development_dependency 'appraisal'
+  s.add_development_dependency 'byebug'
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'factory_bot_rails'
+  s.add_development_dependency 'faker'
+  s.add_development_dependency 'mocha'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rubocop'
 end
